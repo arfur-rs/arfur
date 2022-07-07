@@ -1,0 +1,15 @@
+[package]
+name = "arfsfr-sys"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+
+[build-dependencies]
+tokio = { version = "1.19.2", features = ["full"] }
+color-eyre = "0.6.1"
+artifactory-web-api = "0.0.1"
+cfg-if = "1.0.0"
+
+[package.metadata.nix]
+build = true

@@ -1,0 +1,12 @@
+[package]
+name = "arfsfr"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+arfsfr-sys = { version = "0.0.0", path = "../arfsfr-sys" }
+
+[build-dependencies]
+
+[package.metadata.nix]
+build = true
