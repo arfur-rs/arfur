@@ -1,10 +1,10 @@
 [package]
-name = "arfsfr"
+name = "arfur"
 version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-arfsfr-sys = { version = "0.0.0", path = "../arfsfr-sys" }
+arfur-sys = { version = "0.0.0", path = "../arfur-sys" }
 
 [build-dependencies]
 
