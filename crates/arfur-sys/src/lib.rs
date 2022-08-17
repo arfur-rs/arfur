@@ -1,6 +1,7 @@
-mod bindings;
+#![allow(rustdoc::broken_intra_doc_links)]
 
-/// Turn an fn signature of `_, status: mut i32 -> ()` to `_ -> i32`.
+/// Turn a function signature of `..., status: &mut i32 -> ()` to `... -> i32`.
+#[macro_export]
 macro_rules! status {
     ($function:ident($($arg:expr),* $(,)?)) => {{
         let mut status = 0;
@@ -12,6 +13,7 @@ macro_rules! status {
 
         status
     }};
+
     ($namespace:path, $function:ident($($arg:expr),*)) => {{
         let mut status = 0;
         let result = unsafe { $namespace::$function($(

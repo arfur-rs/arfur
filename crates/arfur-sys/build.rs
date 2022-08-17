@@ -124,7 +124,7 @@ impl Builder {
         std::fs::create_dir(&target_dir)?;
 
         println!(
-            "cargo:warning=Building libraries! Using temporary directory {:?} and target directory {:?}",
+            "Building libraries! Using temporary directory {:?} and target directory {:?}",
             &self.tempdir, &target_dir
         );
 
@@ -155,10 +155,10 @@ impl Builder {
                     let mut options = fs_extra::dir::CopyOptions::new();
                     options.content_only = true;
 
-                    println!("cargo:warning=Copying {from:?} to {to:?}");
+                    println!("Copying {from:?} to {to:?}");
                     fs_extra::dir::copy(from, to.to_str().unwrap(), &options)?;
                 } else {
-                    println!("cargo:warning=Copying {from:?} to {to:?}");
+                    println!("Copying {from:?} to {to:?}");
                     fs_extra::file::copy(from, to, &fs_extra::file::CopyOptions::new())?;
                 }
             }
@@ -207,6 +207,7 @@ pub fn generate_bindings(include_dir: &str, output_file: &str) {
     let bindings = bindgen::Builder::default()
         .derive_default(true)
         .header(format!("{include_dir}/HAL_Wrapper.h"))
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .allowlist_type(SYMBOL_REGEX)
         .allowlist_function(SYMBOL_REGEX)
         .allowlist_var(SYMBOL_REGEX)
@@ -218,7 +219,7 @@ pub fn generate_bindings(include_dir: &str, output_file: &str) {
     println!("builder_args: {:?}", bindings.command_line_flags());
     let out = bindings.generate().expect("Unable to generate bindings");
 
-    println!("cargo:warning=Writing to to {output_file:?}");
+    println!("Writing to to {output_file:?}");
     out.write_to_file(output_file)
         .expect("Couldn't write bindings!");
 
