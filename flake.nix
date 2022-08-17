@@ -11,6 +11,8 @@
           prev.packages
           ++ (with common.pkgs; [
             (pkgs.callPackage ./nix/wpilib-toolchain.nix {})
+            pkg-config
+            openssl.dev
             cargo-outdated
             cargo-audit
             libcxxStdenv

@@ -1,4 +1,4 @@
-// mod bindings;
+mod bindings;
 
 /// Turn an fn signature of `_, status: mut i32 -> ()` to `_ -> i32`.
 macro_rules! status {
@@ -23,3 +23,5 @@ macro_rules! status {
         status
     }};
 }
+
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
