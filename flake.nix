@@ -17,6 +17,7 @@
             cargo-audit
             libcxxStdenv
             gccMultiStdenv
+            glibc_multi.dev
           ]);
 
         env =

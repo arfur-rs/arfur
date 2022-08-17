@@ -2,7 +2,8 @@ use std::{
     collections::HashMap,
     env,
     io::{Cursor, Write},
-    path::{Path, PathBuf},
+    os::unix::prelude::PermissionsExt,
+    path::PathBuf,
 };
 
 use color_eyre::eyre::Result;
@@ -186,10 +187,28 @@ impl Builder {
             format!("{}/bindings.rs", self.out_dir.display()).as_str(),
         );
 
-        // Finally, ask Cargo to link the result with the libraries.
-        let mut library_dir = self.tempdir.clone();
-        library_dir.push("target/");
+        // Finally, move the .so files somewhere persistent and ask Cargo to link with them.
+        let mut from = self.tempdir.clone();
+        from.push("target/");
+        from.push("libraries/");
+
+        match fs_extra::dir::copy(from, &self.out_dir, &fs_extra::dir::CopyOptions::new()) {
+            Ok(_) => (),
+            Err(e) => match e.kind {
+                fs_extra::error::ErrorKind::AlreadyExists => (),
+                _ => panic!("{e}"),
+            },
+        }
+
+        let mut library_dir = self.out_dir.clone();
         library_dir.push("libraries/");
+
+        std::fs::set_permissions(&library_dir, std::fs::Permissions::from_mode(0o755))?;
+        for file in std::fs::read_dir(&library_dir)? {
+            let file = file?.path();
+            std::fs::set_permissions(file, std::fs::Permissions::from_mode(0o755))?;
+        }
+
         linking::link(library_dir.to_str().unwrap());
 
         self.cleanup()
@@ -244,7 +263,6 @@ mod linking {
             println!("cargo:rustc-link-lib=dylib={}", lib);
         }
 
-        let path = std::env::current_dir().unwrap();
         println!("cargo:rustc-link-search=native={lib_dir}");
     }
 }

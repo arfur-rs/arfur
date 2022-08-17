@@ -4,9 +4,8 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-arfur-sys = { version = "0.0.0", path = "../arfur-sys" }
-
-[build-dependencies]
+arfur-sys = { version = "~0.0.0", path = "../arfur-sys" }
+thiserror = "1.0.32"
 
 [package.metadata.nix]
 build = true
