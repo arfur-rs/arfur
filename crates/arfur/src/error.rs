@@ -9,5 +9,5 @@ pub enum Error {
     Unknown,
 }
 
-/// A wrapper around [`std::result::Result`] that uses [`Error`] as the error type.
+/// A wrapper around [`std::result::Result`] that uses [`enum@Error`] as the error type.
 pub type Result<T> = std::result::Result<T, Error>;
