@@ -37,7 +37,8 @@
                                                           $(< ${stdenv.cc}/nix-support/libcxx-cxxflags) \
                                                           ${lib.optionalString stdenv.cc.isClang "-idirafter ${stdenv.cc.cc}/lib/clang/${lib.getVersion stdenv.cc.cc}/include"} \
                                                           ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config} -idirafter ${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.config}/${lib.getVersion stdenv.cc.cc}/include"} \
-                                                       "'';
+                                                          -I ${glibc_multi.dev}/include/ -L ${glibc_multi}/lib
+                                                        "'';
             }
           ];
       };

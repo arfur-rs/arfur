@@ -232,9 +232,12 @@ pub fn generate_bindings(include_dir: &str, output_file: &str) {
         .allowlist_var(SYMBOL_REGEX)
         .allowlist_type("HALUsageReporting::.*")
         .default_enum_style(bindgen::EnumVariation::ModuleConsts)
+        .clang_arg("-nostdinc")
+        .clang_arg("-nostdinc++")
         .clang_arg(format!("-I{}", include_dir))
         .clang_arg("-xc++")
-        .clang_arg("-std=c++17");
+        .clang_arg("-std=c++17")
+        .clang_arg("-stdlib=libc++");
     println!("builder_args: {:?}", bindings.command_line_flags());
     let out = bindings.generate().expect("Unable to generate bindings");
 
