@@ -2,8 +2,12 @@
   inputs = {
     nci.url = "github:yusdacra/nix-cargo-integration";
   };
-  outputs = inputs:
-    inputs.nci.lib.makeOutputs {
+  outputs = {
+    self,
+    nci,
+    ...
+  } @ inputs:
+    nci.lib.makeOutputs {
       root = ./.;
 
       overrides.shell = common: prev: {
@@ -15,9 +19,7 @@
             openssl.dev
             cargo-outdated
             cargo-audit
-            libcxxStdenv
-            gccMultiStdenv
-            glibc_multi.dev
+            glibc_multi
           ]);
 
         env =
