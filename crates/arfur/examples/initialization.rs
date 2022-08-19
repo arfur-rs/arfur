@@ -4,7 +4,7 @@ use arfur::{
 };
 
 fn main() -> Result<()> {
-    let robot = UninitializedRobot::new().initialize()?;
+    let robot = UninitializedRobot::default().initialize()?;
 
     // Having an instance of Robot acts as "proof" that we have initialized the
     // HAL. This is what gets us access to other robot-related types.

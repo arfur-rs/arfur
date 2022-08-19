@@ -205,8 +205,30 @@ impl Builder {
 
         std::fs::set_permissions(&library_dir, std::fs::Permissions::from_mode(0o755))?;
         for file in std::fs::read_dir(&library_dir)? {
-            let file = file?.path();
-            std::fs::set_permissions(file, std::fs::Permissions::from_mode(0o755))?;
+            let file = file?;
+            std::fs::set_permissions(&file.path(), std::fs::Permissions::from_mode(0o755))?;
+
+            if file.file_name().to_str().unwrap().ends_with(".debug") {
+                // If it's a debug file, just delete it.
+                std::fs::remove_file(file.path())?;
+            } else if !&file.file_name().to_str().unwrap().ends_with(".so") {
+                // The file does not end with .so, so rename it by popping the
+                // last 7 characters.
+                //
+                // Turns `libX.so.22.0.0` to `libX.so`.
+
+                println!("Renaming {file:?}");
+
+                let name = file.file_name();
+                let mut name = name.to_str().unwrap().chars();
+                for _ in 1..8 {
+                    name.next_back();
+                }
+                let name = name.as_str();
+                let mut new_name = file.path();
+                new_name.set_file_name(name);
+                std::fs::rename(file.path(), new_name)?;
+            }
         }
 
         linking::link(library_dir.to_str().unwrap());

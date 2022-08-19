@@ -1,5 +1,6 @@
 //! Top-level robot types.
 
+use arfur_sys::HAL_Initialize;
 use once_cell::sync::OnceCell;
 use thiserror::Error;
 
@@ -70,12 +71,18 @@ static ROBOT_INSTANCE: OnceCell<Robot> = OnceCell::new();
 /// instantiation of the Robot type, and in turn, the HAL. For more
 /// justification, see [`Robot`].
 #[derive(Debug, Copy, Clone)]
-pub struct UninitializedRobot {}
+pub struct UninitializedRobot {
+    hal_timeout: i32,
+    hal_mode: HALMode,
+}
 
 impl UninitializedRobot {
     /// Construct an [`UninitializedRobot`].
-    pub fn new() -> Self {
-        Self {}
+    pub fn new(hal_timeout: i32, hal_mode: HALMode) -> Self {
+        Self {
+            hal_timeout,
+            hal_mode,
+        }
     }
 
     /// Initialize a robot, and construct a [`Robot`].
@@ -87,7 +94,14 @@ impl UninitializedRobot {
             }
             None => {
                 tracing::trace!("Creating robot instance...");
-                // TODO: HAL initialization...
+
+                unsafe {
+                    let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
+                    if status != 1 {
+                        return Err(InitializationError::HALInitializationError);
+                    }
+                }
+
                 tracing::trace!("Successfully instantiated robot!");
                 let robot = Robot { _private: () };
                 ROBOT_INSTANCE
@@ -99,8 +113,26 @@ impl UninitializedRobot {
     }
 }
 
+impl Default for UninitializedRobot {
+    fn default() -> Self {
+        Self {
+            hal_timeout: 500,
+            hal_mode: HALMode::Kill,
+        }
+    }
+}
+
 #[derive(Error, Debug)]
 pub enum InitializationError {
     #[error("tried to set the robot instance twice")]
     DoubleInitialization,
+    #[error("failed to initilize HAL (for an unknown reason)")]
+    HALInitializationError,
+}
+
+#[derive(Debug, Copy, Clone)]
+pub enum HALMode {
+    Kill = 0,
+    ForceKill = 1,
+    Warn = 2,
 }

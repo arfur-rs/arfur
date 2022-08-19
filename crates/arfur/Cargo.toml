@@ -2,7 +2,6 @@
 name = "arfur"
 version = "0.0.0"
 edition = "2021"
-include = ["../../assets/", "../../README.md", "../../LICENSE.md"]
 license = "MIT"
 
 [dependencies]
