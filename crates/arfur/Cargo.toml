@@ -2,10 +2,14 @@
 name = "arfur"
 version = "0.0.0"
 edition = "2021"
+include = ["../../assets/", "../../README.md", "../../LICENSE.md"]
+license = "MIT"
 
 [dependencies]
 arfur-sys = { version = "~0.0.0", path = "../arfur-sys" }
-thiserror = "1.0.32"
+once_cell = "~1.13.1"
+thiserror = "~1.0.32"
+tracing = "0.1.36"
 
 [package.metadata.nix]
 build = true

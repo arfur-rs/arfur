@@ -1,7 +1,28 @@
 //! Top-level robot types.
 
-/// An uninitialized robot type. Run [`Self::initialize`] on this type to
-/// (safely) construct a [`Robot`] type.
+use once_cell::sync::OnceCell;
+use thiserror::Error;
+
+/// A top-level robot marker type.
+///
+/// In short, a [`Robot`] is simply a marker that you have initialized the HAL,
+/// and that you have initialized it exactly once. This is necessary because
+/// running HAL methods without initialization panics, and more than one call to
+/// initialize is undefined behaviour. **Owning a `Robot` proves that the HAL is
+/// in working order**.
+///
+/// The [`Robot`] type is not constructable from other modules - there are only
+/// two ways to get access to it. You can either:
+///
+///  * Construct an [`UninitializedRobot`], and run its `initialize` method, or
+///  * Unsafely construct it without initializing the HAL with [`Self::unsafe_new`].
+///
+/// Using `unsafe_new` is **not recommended** - not only does it lack the HAL
+/// initialization code entirely, it also cannot provide the one-time
+/// initialization gaurantee. This method, in fact, completely defeats the point
+/// behind this type.
+///
+/// Using [`UninitializedRobot`] is the way to go.
 ///
 /// ```
 /// # fn main() {
@@ -9,43 +30,11 @@
 /// # }
 /// ```
 ///
-/// ## Why?
-///
-/// Running HAL commands without initializing the HAL is undefined behaviour. An
-/// uninitialized robot type ensures that all components of the HAL are ready
-/// before running anything else.
-///
-/// ## Copy/clone-ability
-///
-/// While an UninitializedRobot (and, in turn, a [`Robot`]) are quite light data
-/// structures, they cannot be copied/cloned, because doing so will create
-/// multiple handles to the HAL.
-pub struct UninitializedRobot {}
-
-impl UninitializedRobot {
-    /// Construct an [`UninitializedRobot`].
-    pub fn new() -> Self {
-        Self {}
-    }
-
-    /// Initialize a robot, and construct a [`Robot`].
-    pub fn initialize() -> Robot {
-        Robot { _private: () }
-    }
-}
-
-/// A top-level robot type, containing all of your robot's components.
-///
-/// ## Construction
-///
-/// While this type *does* implement a [`Self::new`] method, it is marked as unsafe
-/// and is not recommended to use. Unless absolutely necessary, initializing an
-/// [`UninitializedRobot`] is the safer path to constructing this type.
-///
-/// ## Copy/clone-ability
-///
-/// While a Robot is a light data structure, it cannot be copied/cloned, because
-/// doing so will create multiple handles to the HAL.
+/// In fact, you can initialize [`UninitializedRobot`] numerous times, but it
+/// will always gaurantee one-time HAL initialization. An instance of [`Robot`]
+/// is stored internally during the first initialization, and you receive a copy
+/// of this value each time.
+#[derive(Debug, Copy, Clone)]
 pub struct Robot {
     pub(self) _private: (),
 }
@@ -56,7 +45,62 @@ impl Robot {
     /// You most probably don't want to use this, because creating a Robot
     /// without initializing the HAL is undefined behaviour. Unless strictly
     /// necessary, try using [`UninitializedRobot`] instead.
-    pub unsafe fn new() -> Self {
+    pub unsafe fn unsafe_new() -> Self {
         Self { _private: () }
     }
+}
+
+/// The one-time instance of the robot. This is used by [`UninitializedRobot`],
+/// in order to figure out what to provide as the [`Robot`] type.
+static ROBOT_INSTANCE: OnceCell<Robot> = OnceCell::new();
+
+/// An uninitialized robot type. Run [`Self::initialize`] on this type to
+/// (safely) construct a [`Robot`] type.
+///
+/// ```
+/// # fn main() {
+/// let robot: Robot = UninitializedRobot::new().initialize();
+/// # }
+/// ```
+///
+/// Running HAL commands without initializing the HAL raises a panic. An
+/// uninitialized robot type ensures that all components of the HAL are ready
+/// before running anything else. Furthermore, the [`Self::initialize`] method
+/// globally stores a one-time cell, which means that it gaurantees only one
+/// instantiation of the Robot type, and in turn, the HAL. For more
+/// justification, see [`Robot`].
+#[derive(Debug, Copy, Clone)]
+pub struct UninitializedRobot {}
+
+impl UninitializedRobot {
+    /// Construct an [`UninitializedRobot`].
+    pub fn new() -> Self {
+        Self {}
+    }
+
+    /// Initialize a robot, and construct a [`Robot`].
+    pub fn initialize(self) -> Result<Robot, InitializationError> {
+        match ROBOT_INSTANCE.get() {
+            Some(robot) => {
+                tracing::trace!("Robot instance already exists, using existing version.");
+                Ok(*robot)
+            }
+            None => {
+                tracing::trace!("Creating robot instance...");
+                // TODO: HAL initialization...
+                tracing::trace!("Successfully instantiated robot!");
+                let robot = Robot { _private: () };
+                ROBOT_INSTANCE
+                    .set(robot)
+                    .map_err(|_| InitializationError::DoubleInitialization)?;
+                Ok(robot)
+            }
+        }
+    }
+}
+
+#[derive(Error, Debug)]
+pub enum InitializationError {
+    #[error("tried to set the robot instance twice")]
+    DoubleInitialization,
 }
