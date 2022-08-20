@@ -9,6 +9,8 @@ pub enum Error {
     InitializationError(#[from] super::robot::InitializationError),
     #[error(transparent)]
     SPIError(#[from] super::io::spi::SPIError),
+    #[error(transparent)]
+    GyroscopeError(#[from] super::io::signal::gyroscopes::GyroscopeError),
     #[error("unknown")]
     Unknown,
 }

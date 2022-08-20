@@ -20,6 +20,7 @@
             cargo-outdated
             cargo-audit
             glibc_multi
+            rust-analyzer
           ]);
 
         env =
