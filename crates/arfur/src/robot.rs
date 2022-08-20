@@ -4,6 +4,8 @@ use arfur_sys::HAL_Initialize;
 use once_cell::sync::OnceCell;
 use thiserror::Error;
 
+use crate::usage;
+
 /// A top-level robot marker type.
 ///
 /// In short, a [`Robot`] is simply a marker that you have initialized the HAL,
@@ -96,10 +98,18 @@ impl UninitializedRobot {
                 tracing::trace!("Creating robot instance...");
 
                 unsafe {
+                    // Initialize the HAL.
                     let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
                     if status != 1 {
                         return Err(InitializationError::HALInitializationError);
                     }
+
+                    // Report usage to the driver station, or else it will
+                    // disable automatically.
+                    usage::report(
+                        usage::resource_types::kResourceType_Language,
+                        std::mem::transmute(*b"Rust"),
+                    );
                 }
 
                 tracing::trace!("Successfully instantiated robot!");
