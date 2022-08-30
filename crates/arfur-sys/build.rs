@@ -166,9 +166,7 @@ impl Builder {
         }
 
         {
-            let data = "#include <hal/HAL.h>
-                        #include <hal/CANAPI.h>
-                        #include <hal/Encoder.h>";
+            let data = "#include <hal/HAL.h>";
             let mut file = self.tempdir.clone();
             file.push("target/");
             file.push("include/");
@@ -244,7 +242,7 @@ impl Builder {
 }
 
 pub fn generate_bindings(include_dir: &str, output_file: &str) {
-    const SYMBOL_REGEX: &str = r"HAL_\w+";
+    const SYMBOL_REGEX: &str = r"(HAL|HALSIM)_\w+";
     let bindings = bindgen::Builder::default()
         .derive_default(true)
         .header(format!("{include_dir}/HAL_Wrapper.h"))

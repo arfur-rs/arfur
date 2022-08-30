@@ -5,6 +5,7 @@ use thiserror::Error;
 use arfur_sys::{
     try_status, HAL_Bool, HAL_CloseSPI, HAL_InitializeSPI, HAL_ReadSPI,
     HAL_SetSPIChipSelectActiveHigh, HAL_SetSPIChipSelectActiveLow, HAL_SetSPIOpts, HAL_SetSPISpeed,
+    HAL_WriteSPI,
 };
 
 use crate::robot::Robot;
@@ -69,6 +70,23 @@ impl SPI {
         }
 
         Ok(buf)
+    }
+
+    /// Write a buffer to the SPI.
+    pub fn write(&mut self, buf: &[u8]) -> Result<i32, SPIError> {
+        let result = unsafe {
+            HAL_WriteSPI(
+                self.port as i32,
+                buf.as_ptr() as *const u8,
+                buf.len() as i32,
+            )
+        };
+
+        if result == -1 {
+            return Err(SPIError::Unknown(-1));
+        } else {
+            return Ok(result);
+        }
     }
 
     /// Set the clock rate.
