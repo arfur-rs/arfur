@@ -6,7 +6,7 @@ use crate::robot::Robot;
 use super::{Gyroscope, GyroscopeError};
 
 pub struct ADXRS450 {
-    handle: SPI,
+    _handle: SPI,
 }
 
 impl ADXRS450 {
@@ -20,7 +20,11 @@ impl ADXRS450 {
         )?;
         handle.set_clock_rate(3000000)?;
 
-        Ok(Self { handle })
+        // TODO: validate the part ID
+        // TODO: initialize the accumulator
+        // TODO: report the resource
+
+        Ok(Self { _handle: handle })
     }
 }
 

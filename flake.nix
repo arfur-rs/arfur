@@ -21,6 +21,7 @@
             cargo-audit
             glibc_multi
             rust-analyzer
+            mdbook
           ]);
 
         env =

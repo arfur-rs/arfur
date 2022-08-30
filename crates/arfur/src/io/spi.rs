@@ -82,12 +82,8 @@ impl SPI {
     /// Set the chip select.
     pub fn set_chip_select(&mut self, chip_select: ChipSelect) -> Result<(), SPIError> {
         let status = match chip_select {
-            ChipSelect::ActiveLow => unsafe {
-                try_status!(HAL_SetSPIChipSelectActiveLow(self.port as i32))
-            },
-            ChipSelect::ActiveHigh => unsafe {
-                try_status!(HAL_SetSPIChipSelectActiveHigh(self.port as i32))
-            },
+            ChipSelect::ActiveLow => try_status!(HAL_SetSPIChipSelectActiveLow(self.port as i32)),
+            ChipSelect::ActiveHigh => try_status!(HAL_SetSPIChipSelectActiveHigh(self.port as i32)),
         };
 
         status.map_err(|x| SPIError::Unknown(x))
