@@ -39,17 +39,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "arfur"
-version = "0.0.0"
-dependencies = [
- "arfur-sys",
- "once_cell",
- "thiserror",
- "tracing",
-]
-
-[[package]]
-name = "arfur-sys"
+name = "arfhal-sys"
 version = "0.0.0"
 dependencies = [
  "bindgen",
@@ -61,6 +51,16 @@ dependencies = [
  "tokio",
  "zip 0.6.2",
  "zip-extract",
+]
+
+[[package]]
+name = "arfur"
+version = "0.0.0"
+dependencies = [
+ "arfhal-sys",
+ "once_cell",
+ "thiserror",
+ "tracing",
 ]
 
 [[package]]

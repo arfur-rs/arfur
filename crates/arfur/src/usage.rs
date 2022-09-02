@@ -1,11 +1,11 @@
 //! Wrappers around usage reporting.
 
-use arfur_sys::HAL_Report;
+use arfhal_sys::HAL_Report;
 use std::ffi::CStr;
 use std::ptr;
 
-pub use arfur_sys::HALUsageReporting_tInstances as instances;
-pub use arfur_sys::HALUsageReporting_tResourceType as resource_types;
+pub use arfhal_sys::HALUsageReporting_tInstances as instances;
+pub use arfhal_sys::HALUsageReporting_tResourceType as resource_types;
 
 /// Report the usage of a specific resource type with an `instance` value attached.
 ///

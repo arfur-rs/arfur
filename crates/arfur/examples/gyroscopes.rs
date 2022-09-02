@@ -7,5 +7,7 @@ pub fn main() -> Result<()> {
 
     let gyroscope = ADXRS450::new(robot, SPIPort::CS0);
 
+    println!("Connected to gyroscope succesfully!");
+
     Ok(())
 }

@@ -64,4 +64,4 @@ macro_rules! try_status {
     }};
 }
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+include!(concat!(env!("OUT_DIR"), "/hal.rs"));

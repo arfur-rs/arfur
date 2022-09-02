@@ -1,5 +1,5 @@
 [package]
-name = "arfur-sys"
+name = "arfhal-sys"
 version = "0.0.0"
 edition = "2021"
 license = "MIT"
