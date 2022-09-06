@@ -1,40 +1,12 @@
+//! A build runner for Arfur.
+
 use std::{
-    env,
     io::{Cursor, Write},
-    os::unix::prelude::PermissionsExt,
+    os::unix::fs::PermissionsExt,
     path::Path,
 };
 
-use color_eyre::eyre::Result;
-
-#[tokio::main]
-async fn main() -> Result<()> {
-    use LibraryType::*;
-
-    let out_dir = env::var("OUT_DIR").unwrap();
-
-    let mut runner = Runner::new(
-        "2022.4.1",
-        "2022.4.0",
-        vec![
-            HAL,
-            HALHeaders,
-            Visa,
-            Netcomm,
-            Chipobject,
-            Runtime,
-            WPIUtil,
-            WPIUtilHeaders,
-            WPILibCHeaders,
-            WPIMath,
-        ],
-        &Path::new(&out_dir),
-    );
-
-    runner.run().await?;
-
-    Ok(())
-}
+use color_eyre::Result;
 
 /// The main build script runner. See [`Self::run`] for more details.
 pub struct Runner<'a> {

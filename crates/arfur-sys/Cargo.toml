@@ -1,5 +1,5 @@
 [package]
-name = "arfhal-sys"
+name = "arfur-sys"
 version = "0.0.0"
 edition = "2021"
 license = "MIT"
@@ -16,6 +16,7 @@ zip = "0.6.2"
 zip-extract = "0.1.1"
 fs_extra = "1.2.0"
 bindgen = "0.60.1"
+arfur-build = { version = "0.1.0", path = "../arfur-build" }
 
 [package.metadata.nix]
 build = true

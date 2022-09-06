@@ -2,7 +2,7 @@
 
 use thiserror::Error;
 
-use arfhal_sys::{
+use arfur_sys::{
     try_status, HAL_Bool, HAL_CloseSPI, HAL_InitializeSPI, HAL_ReadSPI,
     HAL_SetSPIChipSelectActiveHigh, HAL_SetSPIChipSelectActiveLow, HAL_SetSPIOpts, HAL_SetSPISpeed,
     HAL_WriteSPI,

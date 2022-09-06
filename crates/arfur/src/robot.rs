@@ -1,6 +1,6 @@
 //! Top-level robot types.
 
-use arfhal_sys::HAL_Initialize;
+use arfur_sys::HAL_Initialize;
 use once_cell::sync::OnceCell;
 use thiserror::Error;
 
