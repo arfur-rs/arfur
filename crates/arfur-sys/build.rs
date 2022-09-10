@@ -24,6 +24,7 @@ async fn main() -> Result<()> {
             WPIUtilHeaders,
             WPILibCHeaders,
             WPIMath,
+            NetworkTables,
         ],
         &Path::new(&out_dir),
     );
