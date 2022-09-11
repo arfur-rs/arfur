@@ -6,10 +6,17 @@ license = "MIT"
 include = ["./src", "./assets"]
 
 [dependencies]
-arfur-sys = { version = "~0.0.0", path = "../arfur-sys" }
+autocxx = "0.22.4"
+cxx = "1.0.75"
 once_cell = "~1.13.1"
 thiserror = "~1.0.32"
 tracing = "~0.1.36"
+
+[build-dependencies]
+arfur-build = { version = "0.1.0", path = "../arfur-build" }
+autocxx-build = "0.22.4"
+color-eyre = "0.6.2"
+tokio = { version = "1.21.0", features = ["full"] }
 
 [package.metadata.nix]
 build = true

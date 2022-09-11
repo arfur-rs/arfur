@@ -1,4 +1,7 @@
-use std::{env, path::Path};
+use std::{
+    env,
+    path::{Path, PathBuf},
+};
 
 use arfur_build::{LibraryType, Runner};
 
@@ -33,8 +36,15 @@ async fn main() -> Result<()> {
         ],
         &Path::new(&out_dir),
     );
-
     runner.run().await?;
+
+    let path = PathBuf::from(format!("{out_dir}/raw/"));
+    let mut b = autocxx_build::Builder::new("src/io/gyroscopes.rs", &[&path])
+        .extra_clang_args(&["-std=c++17", "-stdlib=libc++"])
+        .build()?;
+    b.flag_if_supported("-std=c++17")
+        .flag_if_supported("-stdlib=libc++")
+        .compile("arfur-gyros");
 
     Ok(())
 }

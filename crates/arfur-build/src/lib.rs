@@ -1,6 +1,7 @@
 //! A build runner for Arfur.
 
 use std::{
+    fs,
     io::{Cursor, Write},
     os::unix::fs::PermissionsExt,
     path::Path,
@@ -38,12 +39,20 @@ impl<'a> Runner<'a> {
 
     /// Run the build script.
     pub async fn run(&mut self) -> Result<()> {
-        self.download_libraries().await?;
-        self.install_libraries().await?;
-        self.link_libraries()?;
-        self.create_wrappers()?;
-        self.create_bindings()?;
-        self.cleanup()?;
+        let complete_marker_path = self
+            .output_directory
+            .to_path_buf()
+            .join("arfur.complete")
+            .into_boxed_path();
+
+        if !complete_marker_path.exists() {
+            self.download_libraries().await?;
+            self.install_libraries().await?;
+            self.link_libraries()?;
+            self.cleanup()?;
+        } else {
+            println!("Built copy found, not building again...")
+        }
 
         Ok(())
     }
@@ -214,6 +223,14 @@ impl<'a> Runner<'a> {
     }
 
     pub fn cleanup(&mut self) -> Result<()> {
+        let complete_marker_path = self
+            .output_directory
+            .to_path_buf()
+            .join("arfur.complete")
+            .into_boxed_path();
+
+        fs::File::create(complete_marker_path)?;
+
         Ok(())
     }
 }
