@@ -37,4 +37,4 @@ fn main() -> Result<()> {
 
 ## Getting started
 
-For now, sift through the crate's [examples](https://github.com/arfur-rs/arfur/tree/main/crates/arfur/examples) and [documentation](https://docs.rs/arfur). There's much more to come!
+For now, sift through the crate's [examples](https://github.com/arfur-rs/arfur/tree/main/examples) and [documentation](https://docs.rs/arfur). There's much more to come!

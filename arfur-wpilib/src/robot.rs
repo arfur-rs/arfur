@@ -1,10 +1,9 @@
 //! Top-level robot types.
 
-use arfur_sys::root::HAL_Initialize;
+use std::ffi::{CString, NulError};
+
 use once_cell::sync::OnceCell;
 use thiserror::Error;
-
-use crate::usage;
 
 /// A top-level robot marker type.
 ///
@@ -37,7 +36,7 @@ use crate::usage;
 /// will always gaurantee one-time HAL initialization. An instance of [`Robot`]
 /// is stored internally during the first initialization, and you receive a copy
 /// of this value each time.
-#[derive(Debug, Copy, Clone)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Robot {
     pub(self) _private: (),
 }
@@ -72,7 +71,7 @@ static ROBOT_INSTANCE: OnceCell<Robot> = OnceCell::new();
 /// globally stores a one-time cell, which means that it gaurantees only one
 /// instantiation of the Robot type, and in turn, the HAL. For more
 /// justification, see [`Robot`].
-#[derive(Debug, Copy, Clone)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct UninitializedRobot {
     hal_timeout: i32,
     hal_mode: HALMode,
@@ -98,17 +97,24 @@ impl UninitializedRobot {
                 tracing::trace!("Creating robot instance...");
 
                 unsafe {
+                    use crate::ffi::HAL_Initialize;
+
                     // Initialize the HAL.
                     let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
                     if status != 1 {
                         return Err(InitializationError::HALInitializationError);
                     }
 
+                    use crate::ffi::nUsageReporting::{report, tResourceType};
+                    use std::os::raw::c_char;
+
                     // Report usage to the driver station, or else it will
                     // disable automatically.
-                    usage::report(
-                        usage::resource_types::kResourceType_Language,
-                        std::mem::transmute(*b"Rust"),
+                    report(
+                        tResourceType::kResourceType_Language,
+                        0, // TODO: check if this is the correct instanceNumber
+                        0,
+                        CString::new("Rust")?.as_ptr() as *const c_char,
                     );
                 }
 
@@ -132,15 +138,17 @@ impl Default for UninitializedRobot {
     }
 }
 
-#[derive(Error, Debug)]
+#[derive(Error, Clone, Debug, PartialEq, Eq)]
 pub enum InitializationError {
     #[error("tried to set the robot instance twice")]
     DoubleInitialization,
     #[error("failed to initilize HAL (for an unknown reason)")]
     HALInitializationError,
+    #[error("failed to create a c-based string, this is probably a bug in Arfur itself and should be reported immediately")]
+    CStringConversionError(#[from] NulError),
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum HALMode {
     Kill = 0,
     ForceKill = 1,
