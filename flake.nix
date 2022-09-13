@@ -19,6 +19,7 @@
             openssl.dev
             cargo-outdated
             cargo-audit
+            git-cliff
             glibc_multi
             rust-analyzer
             mdbook

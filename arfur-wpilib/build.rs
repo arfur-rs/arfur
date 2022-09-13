@@ -37,7 +37,7 @@ async fn main() -> Result<()> {
             CSCore,
             CSCoreHeaders,
         ],
-        &Path::new(&out_dir),
+        Path::new(&out_dir),
     );
     runner.run().await?;
 
