@@ -16,6 +16,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev
+
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -39,6 +42,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev
 
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
@@ -64,6 +70,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev
 
       - name: Install toolchain
         uses: actions-rs/toolchain@v1

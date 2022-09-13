@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev
       - uses: actions-rs/audit-check@issue-104
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
