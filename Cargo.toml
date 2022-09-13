@@ -1,4 +1,23 @@
+[package]
+name = "arfur"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.62"
+license = "MIT"
+
+[features]
+default = ["wpilib"]
+
+wpilib = ["arfur-wpilib"]
+
+[dependencies]
+
+[dependencies.arfur-wpilib]
+path = "./arfur-wpilib"
+version = "0.0.0"
+optional = true
+
 [workspace]
-members = [ "crates/*"
-#          , "examples/*"
+members = [ "arfur-wpilib"
+          , "arfur-build"
           ]

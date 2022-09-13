@@ -43,6 +43,23 @@ dependencies = [
 name = "arfur"
 version = "0.0.0"
 dependencies = [
+ "arfur-wpilib",
+]
+
+[[package]]
+name = "arfur-build"
+version = "0.0.0"
+dependencies = [
+ "bindgen",
+ "color-eyre",
+ "reqwest",
+ "zip-extract",
+]
+
+[[package]]
+name = "arfur-wpilib"
+version = "0.0.0"
+dependencies = [
  "arfur-build",
  "autocxx",
  "autocxx-build",
@@ -52,16 +69,6 @@ dependencies = [
  "thiserror",
  "tokio",
  "tracing",
-]
-
-[[package]]
-name = "arfur-build"
-version = "0.1.0"
-dependencies = [
- "bindgen",
- "color-eyre",
- "reqwest",
- "zip-extract",
 ]
 
 [[package]]
