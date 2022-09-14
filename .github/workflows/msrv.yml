@@ -14,7 +14,7 @@ jobs:
           - 1.62.0
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev clang
@@ -41,7 +41,7 @@ jobs:
           - 1.62.0
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev clang
@@ -69,7 +69,7 @@ jobs:
           - 1.62.0
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev clang

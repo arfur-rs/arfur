@@ -19,7 +19,7 @@
 use arfur::prelude::*;
 
 fn main() -> Result<()> {
-    let robot: Robot = UninitializedRobot::new().initialize()?;
+    let robot: Robot = UninitializedRobot::default().initialize()?;
 
     // Having a `Robot` type is proof that the HAL has been initialized. We can
     // use to construct all kinds of handles!

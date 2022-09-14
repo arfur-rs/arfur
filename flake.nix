@@ -11,6 +11,10 @@
       root = ./.;
 
       overrides.shell = common: prev: {
+        # startup = prev.startup // {
+        #   setupStdenv.text = "${common.pkgs.llvmPackages.stdenv}/setup";
+        # };
+
         packages =
           prev.packages
           ++ (with common.pkgs; [
