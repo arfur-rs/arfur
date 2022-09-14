@@ -1,6 +1,7 @@
 [package]
 name = "arfur-wpilib"
-version = "0.0.0"
+description = "Bindings to WPILib through autocxx."
+version = "0.0.1"
 edition = "2021"
 license = "MIT"
 rust-version = "1.62"
@@ -17,7 +18,7 @@ autocxx-build = "0.22.4"
 color-eyre = "0.6.2"
 
 [build-dependencies.arfur-build]
-version = "0.0.0"
+version = "0.0.1"
 path = "../arfur-build"
 
 [build-dependencies.tokio]

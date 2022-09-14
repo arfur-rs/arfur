@@ -23,6 +23,7 @@
             openssl.dev
             cargo-outdated
             cargo-audit
+            cargo-workspaces
             git-cliff
             glibc_multi
             rust-analyzer

@@ -71,7 +71,7 @@ include_cpp! {
     #include "frc/SpeedController.h"
     #include "frc/SpeedControllerGroup.h"
     #include "frc/SpeedControllerGroup.inc"
-    #include "frc/StateSpaceUtil.h"
+    // #include "frc/StateSpaceUtil.h"
     #include "frc/SynchronousInterrupt.h"
     #include "frc/Threads.h"
     #include "frc/TimedRobot.h"
