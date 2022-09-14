@@ -3,7 +3,7 @@ name = "arfur-wpilib"
 version = "0.0.0"
 edition = "2021"
 license = "MIT"
-msrv = "1.62"
+rust-version = "1.62"
 
 [dependencies]
 autocxx = "0.22.4"

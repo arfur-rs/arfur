@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev
+        run: sudo apt-get install -y gcc-arm-linux-gnueabi pkg-config libssl-dev libc++-dev clang
       - uses: actions-rs/toolchain@v1
         with:
             toolchain: stable
