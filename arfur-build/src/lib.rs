@@ -185,43 +185,6 @@ impl<'a> Runner<'a> {
         Ok(())
     }
 
-    pub fn create_bindings(&mut self) -> Result<()> {
-        let raw_directory = self
-            .output_directory
-            .to_path_buf()
-            .join("raw")
-            .into_boxed_path();
-
-        let output_file = self.output_directory.to_path_buf().join("hal.rs");
-
-        const SYMBOL_REGEX: &str = r"(HAL_|HALSIM_|Notifier|Gyro|frc::)\w+";
-
-        let bindings = bindgen::Builder::default()
-            .header(format!(
-                "{raw_directory}/HAL_Wrapper.h",
-                raw_directory = raw_directory.to_str().unwrap()
-            ))
-            .enable_cxx_namespaces()
-            .generate_inline_functions(true)
-            .default_enum_style(bindgen::EnumVariation::NewType { is_bitfield: true })
-            .allowlist_type(SYMBOL_REGEX)
-            .allowlist_function(SYMBOL_REGEX)
-            .allowlist_var(SYMBOL_REGEX)
-            .allowlist_type("HALUsageReporting::.*")
-            .clang_arg(format!("-I{}", raw_directory.to_str().unwrap()))
-            .clang_arg("-std=c++17")
-            .clang_arg("-stdlib=libc++")
-            .clang_args(&["-x", "c++"]);
-        println!("builder_args: {:?}", bindings.command_line_flags());
-        let out = bindings.generate().expect("Unable to generate bindings");
-
-        println!("Writing to to {output_file:?}");
-        out.write_to_file(output_file)
-            .expect("Couldn't write bindings!");
-
-        Ok(())
-    }
-
     pub fn cleanup(&mut self) -> Result<()> {
         let complete_marker_path = self
             .output_directory

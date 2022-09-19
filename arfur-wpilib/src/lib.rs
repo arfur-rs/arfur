@@ -127,7 +127,7 @@ include_cpp! {
 
     safety!(unsafe_ffi)
 
-    generate!("HAL_Initialize")
+    // generate!("HAL_Initialize")
 
     generate!("frc::Gyro")
     generate!("frc::ADXRS450_Gyro")
@@ -142,5 +142,5 @@ include_cpp! {
 
     generate!("frc::Rotation2d")
 
-    generate_ns!("nUsageReporting")
+    // generate_ns!("nUsageReporting")
 }
