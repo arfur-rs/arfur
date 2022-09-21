@@ -2,8 +2,11 @@
 name = "arfur-wpilib"
 description = "Bindings to WPILib through autocxx."
 version = "0.0.1"
-edition = "2021"
+
 license = "MIT"
+repository = "https://github.com/arfur-rs/arfur/"
+
+edition = "2021"
 rust-version = "1.62"
 
 [dependencies]

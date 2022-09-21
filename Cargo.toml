@@ -2,9 +2,12 @@
 name = "arfur"
 description = "A set of bindings and a framework that builds on top of the WPILib suite, enabling Rust-based robot programs in FRC."
 version = "0.0.1"
+
+license = "MIT"
+repository = "https://github.com/arfur-rs/arfur/"
+
 edition = "2021"
 rust-version = "1.62"
-license = "MIT"
 
 [features]
 default = ["wpilib"]
