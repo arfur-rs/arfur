@@ -96,27 +96,22 @@ impl UninitializedRobot {
             None => {
                 tracing::trace!("Creating robot instance...");
 
-                // unsafe {
-                //     use crate::ffi::HAL_Initialize;
+                unsafe {
+                    // use crate::ffi::HAL_Initialize;
 
-                //     // Initialize the HAL.
-                //     let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
-                //     if status != 1 {
-                //         return Err(InitializationError::HALInitializationError);
-                //     }
+                    // // Initialize the HAL.
+                    // let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
+                    // if status != 1 {
+                    //     return Err(InitializationError::HALInitializationError);
+                    // }
 
-                //     use crate::ffi::nUsageReporting::{report, tResourceType};
-                //     use std::os::raw::c_char;
-
-                //     // Report usage to the driver station, or else it will
-                //     // disable automatically.
-                //     report(
-                //         tResourceType::kResourceType_Language,
-                //         0, // TODO: check if this is the correct instanceNumber
-                //         0,
-                //         CString::new("Rust")?.as_ptr() as *const c_char,
-                //     );
-                // }
+                    // Observe the start to the driver station, or else it will
+                    // disable automatically.
+                    //
+                    // This, in fact, is a wrapper around NI's NetComm library's
+                    // report() interface.
+                    crate::ffi::HAL_ObserveUserProgramStarting();
+                }
 
                 tracing::trace!("Successfully instantiated robot!");
                 let robot = Robot { _private: () };

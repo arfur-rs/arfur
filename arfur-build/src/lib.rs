@@ -1,11 +1,6 @@
 //! A build runner for Arfur.
 
-use std::{
-    fs,
-    io::{Cursor, Write},
-    os::unix::fs::PermissionsExt,
-    path::Path,
-};
+use std::{fs, io::Cursor, os::unix::fs::PermissionsExt, path::Path};
 
 use color_eyre::Result;
 
@@ -48,11 +43,12 @@ impl<'a> Runner<'a> {
         if !complete_marker_path.exists() {
             self.download_libraries().await?;
             self.install_libraries().await?;
-            self.link_libraries()?;
             self.cleanup()?;
         } else {
             println!("Built copy found, not building again...")
         }
+
+        self.link_libraries()?;
 
         Ok(())
     }
@@ -125,62 +121,37 @@ impl<'a> Runner<'a> {
     }
 
     pub fn link_libraries(&mut self) -> Result<()> {
-        #[cfg(target_arch = "arm")]
-        #[cfg(target_vendor = "unknown")]
-        #[cfg(target_os = "linux")]
-        #[cfg(target_env = "gnu")]
-        {
-            const LIB_LIST: &[&str] = &[
-                "cscore",
-                "embcanshim",
-                "fpgalvshim",
-                "FRC_NetworkCommunication",
-                "ntcore",
-                "RoboRIO_FRC_ChipObject",
-                "visa",
-                "wpiHal",
-                "wpilibc",
-                "wpimath",
-                "wpiutil",
-            ];
+        const LIB_LIST: &[&str] = &[
+            "cscore",
+            "embcanshim",
+            "fpgalvshim",
+            "FRC_NetworkCommunication",
+            "ntcore",
+            "RoboRIO_FRC_ChipObject",
+            "visa",
+            "wpiHal",
+            "wpilibc",
+            "wpimath",
+            "wpiutil",
+        ];
 
-            let dynamic_library_dir = self
-                .output_directory
-                .to_path_buf()
-                .join("raw")
-                .join("linux")
-                .join("athena")
-                .join("shared")
-                .into_boxed_path();
+        let dynamic_library_dir = self
+            .output_directory
+            .to_path_buf()
+            .join("raw")
+            .join("linux")
+            .join("athena")
+            .join("shared")
+            .into_boxed_path();
 
-            for lib in LIB_LIST.iter() {
-                println!("cargo:rustc-link-lib=dylib={}", lib);
-            }
-
-            println!(
-                "cargo:rustc-link-search=native={dynamic_library_dir}",
-                dynamic_library_dir = dynamic_library_dir.to_str().unwrap()
-            );
+        for lib in LIB_LIST.iter() {
+            println!("cargo:rustc-link-lib=dylib={}", lib);
         }
 
-        Ok(())
-    }
-
-    pub fn create_wrappers(&mut self) -> Result<()> {
-        let mut f = std::fs::File::create(
-            self.output_directory
-                .to_path_buf()
-                .join("raw")
-                .join("HAL_Wrapper.h"),
-        )?;
-
-        let data = r##"
-            #include <hal/HAL.h>
-
-            #include <frc/ADXRS450_Gyro.h>
-        "##;
-
-        f.write_all(data.as_bytes())?;
+        println!(
+            "cargo:rustc-link-search=native={dynamic_library_dir}",
+            dynamic_library_dir = dynamic_library_dir.to_str().unwrap()
+        );
 
         Ok(())
     }

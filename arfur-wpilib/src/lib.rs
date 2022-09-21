@@ -6,6 +6,8 @@ pub mod prelude {
 
     pub use crate::error::{Error, Result};
     pub use crate::robot::{Robot, UninitializedRobot};
+
+    pub use super::ffi::HAL_ObserveUserProgramDisabled;
 }
 
 use autocxx::prelude::*;
@@ -78,56 +80,17 @@ include_cpp! {
     #include "frc/TimesliceRobot.h"
     #include "frc/XboxController.h"
 
-    #include "hal/Accelerometer.h"
-    #include "hal/AddressableLED.h"
-    #include "hal/AddressableLEDTypes.h"
-    #include "hal/AnalogAccumulator.h"
-    #include "hal/AnalogGyro.h"
-    #include "hal/AnalogInput.h"
-    #include "hal/AnalogOutput.h"
-    #include "hal/AnalogTrigger.h"
-    #include "hal/CAN.h"
-    #include "hal/CANAPI.h"
-    #include "hal/CANAPITypes.h"
-    #include "hal/CTREPCM.h"
-    #include "hal/ChipObject.h"
-    #include "hal/Constants.h"
-    #include "hal/Counter.h"
-    #include "hal/DIO.h"
-    #include "hal/DMA.h"
-    #include "hal/DriverStation.h"
-    #include "hal/DriverStationTypes.h"
-    #include "hal/DutyCycle.h"
-    #include "hal/Encoder.h"
-    #include "hal/Errors.h"
-    #include "hal/Extensions.h"
-    #include "hal/FRCUsageReporting.h"
-    #include "hal/HAL.h"
-    #include "hal/HALBase.h"
-    #include "hal/I2C.h"
-    #include "hal/I2CTypes.h"
-    #include "hal/Interrupts.h"
-    #include "hal/Main.h"
-    #include "hal/Notifier.h"
-    #include "hal/PWM.h"
-    #include "hal/Ports.h"
-    #include "hal/Power.h"
-    #include "hal/PowerDistribution.h"
-    #include "hal/REVPH.h"
-    #include "hal/Relay.h"
-    #include "hal/SPI.h"
-    #include "hal/SPITypes.h"
-    #include "hal/SerialPort.h"
-    #include "hal/SimDevice.h"
-    #include "hal/Threads.h"
-    #include "hal/Types.h"
-    #include "hal/Value.h"
+    #include "HAL.h"
 
     #include "FRC_NetworkCommunication/UsageReporting.h"
+
+    #include "FRC_NetworkCommunication.h"
 
     safety!(unsafe_ffi)
 
     // generate!("HAL_Initialize")
+    generate!("HAL_ObserveUserProgramStarting")
+    generate!("HAL_ObserveUserProgramDisabled")
 
     generate!("frc::Gyro")
     generate!("frc::ADXRS450_Gyro")
@@ -142,5 +105,6 @@ include_cpp! {
 
     generate!("frc::Rotation2d")
 
-    // generate_ns!("nUsageReporting")
+    // TODO: replace the following with `generate_ns!("FRC_NetworkCommunication")`
+    // TODO: generate!("FRC_NetworkCommunication_nUsageReporting_report")
 }
