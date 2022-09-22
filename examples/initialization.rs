@@ -5,7 +5,7 @@ fn main() -> Result<()> {
     println!("Initialized successfully.");
 
     loop {
-        HAL_ObserveUserProgramDisabled();
+        unsafe { HAL_ObserveUserProgramDisabled() };
         std::thread::sleep(std::time::Duration::from_millis(50));
     }
 

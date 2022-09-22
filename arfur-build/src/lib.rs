@@ -2,7 +2,7 @@
 
 use std::{fs, io::Cursor, os::unix::fs::PermissionsExt, path::Path};
 
-use color_eyre::Result;
+use color_eyre::{Help, Result};
 
 /// The main build script runner. See [`Self::run`] for more details.
 pub struct Runner<'a> {
@@ -34,19 +34,16 @@ impl<'a> Runner<'a> {
 
     /// Run the build script.
     pub async fn run(&mut self) -> Result<()> {
-        let complete_marker_path = self
-            .output_directory
-            .to_path_buf()
-            .join("arfur.complete")
-            .into_boxed_path();
+        let complete_marker_path = self.output_directory.join("arfur.complete");
 
-        if !complete_marker_path.exists() {
-            self.download_libraries().await?;
-            self.install_libraries().await?;
-            self.cleanup()?;
-        } else {
-            println!("Built copy found, not building again...")
-        }
+        //if !complete_marker_path.exists() {
+        self.download_libraries().await?;
+        self.install_libraries().await?;
+        self.generate_bindings().await?;
+        self.cleanup()?;
+        //} else {
+        println!("Built copy found, not building again...");
+        //}
 
         self.link_libraries()?;
 
@@ -57,11 +54,7 @@ impl<'a> Runner<'a> {
     /// downloads to {output_directory}/raw/. If this function succeeds, every
     /// FRC-related library should be available (unzipped) in this directory.
     pub async fn download_libraries(&mut self) -> Result<()> {
-        let extracted_dir = self
-            .output_directory
-            .to_path_buf()
-            .join("raw")
-            .into_boxed_path();
+        let extracted_dir = self.output_directory.join("raw");
 
         for library in &self.libraries {
             let link = library.get_link(self.version, self.ni_version);
@@ -82,12 +75,10 @@ impl<'a> Runner<'a> {
     pub async fn install_libraries(&mut self) -> Result<()> {
         let dynamic_library_dir = self
             .output_directory
-            .to_path_buf()
             .join("raw")
             .join("linux")
             .join("athena")
-            .join("shared")
-            .into_boxed_path();
+            .join("shared");
 
         std::fs::set_permissions(&dynamic_library_dir, std::fs::Permissions::from_mode(0o755))?;
         for file in std::fs::read_dir(&dynamic_library_dir)? {
@@ -137,12 +128,10 @@ impl<'a> Runner<'a> {
 
         let dynamic_library_dir = self
             .output_directory
-            .to_path_buf()
             .join("raw")
             .join("linux")
             .join("athena")
-            .join("shared")
-            .into_boxed_path();
+            .join("shared");
 
         for lib in LIB_LIST.iter() {
             println!("cargo:rustc-link-lib=dylib={}", lib);
@@ -156,12 +145,32 @@ impl<'a> Runner<'a> {
         Ok(())
     }
 
+    pub async fn generate_bindings(&mut self) -> Result<()> {
+        let raw_directory = self.output_directory.join("raw");
+
+        const ALLOWLIST: &str = "frc::(ADXRS450_Gyro)|HAL_.*";
+
+        let bindings = bindgen::Builder::default()
+            .header("./wrapper.h")
+            .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+            .allowlist_function(ALLOWLIST)
+            .allowlist_type(ALLOWLIST)
+            .allowlist_var(ALLOWLIST)
+            .clang_arg(format!("-I{}", raw_directory.to_str().unwrap()))
+            .clang_arg("-std=c++17")
+            .clang_args(&["-x", "c++"])
+            .generate()
+            .note("Failed to generate bindings...")?;
+
+        bindings
+            .write_to_file(self.output_directory.join("bindings.rs"))
+            .note("Failed to write bindings file...")?;
+
+        Ok(())
+    }
+
     pub fn cleanup(&mut self) -> Result<()> {
-        let complete_marker_path = self
-            .output_directory
-            .to_path_buf()
-            .join("arfur.complete")
-            .into_boxed_path();
+        let complete_marker_path = self.output_directory.join("arfur.complete");
 
         fs::File::create(complete_marker_path)?;
 
