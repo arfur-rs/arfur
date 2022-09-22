@@ -13,6 +13,7 @@ rust-version = "1.62"
 default = ["wpilib"]
 
 wpilib = ["arfur-wpilib"]
+bindgen = ["arfur-wpilib/bindgen"]
 
 [dependencies]
 
@@ -25,4 +26,5 @@ optional = true
 members = [ "."
           , "arfur-wpilib"
           , "arfur-build"
+          , "xtask"
           ]

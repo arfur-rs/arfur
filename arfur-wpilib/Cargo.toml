@@ -9,15 +9,15 @@ repository = "https://github.com/arfur-rs/arfur/"
 edition = "2021"
 rust-version = "1.62"
 
+[features]
+bindgen = []
+
 [dependencies]
-autocxx = "0.22.4"
-cxx = "1.0.75"
 once_cell = "1.13.1"
 thiserror = "1.0.32"
 tracing = "0.1.36"
 
 [build-dependencies]
-autocxx-build = "0.22.4"
 color-eyre = "0.6.2"
 
 [build-dependencies.arfur-build]

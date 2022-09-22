@@ -11,5 +11,9 @@ pub mod prelude {
 }
 
 pub mod ffi {
+    #[cfg(feature = "bindgen")]
     include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+    #[cfg(not(feature = "bindgen"))]
+    include!("./bindings.rs");
 }

@@ -1,3 +1,6 @@
+[alias]
+xtask = "run --package xtask --"
+
 [target.arm-unknown-linux-gnueabi]
 linker = "arm-frc2022-linux-gnueabi-gcc"
 rustflags = [

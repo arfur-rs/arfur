@@ -1,0 +1,14 @@
+[package]
+name = "xtask"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+arfur-build = { version = "0.0.1", path = "../arfur-build" }
+clap = { version = "3.2.22", features = ["derive"] }
+color-eyre = "0.6.2"
+
+[dependencies.tokio]
+version = "1.21.0"
+features = ["macros", "rt-multi-thread"]
