@@ -9,6 +9,9 @@ repository = "https://github.com/arfur-rs/arfur/"
 edition = "2021"
 rust-version = "1.62"
 
+[package.metadata.nix]
+build = true
+
 [features]
 default = ["wpilib"]
 
@@ -28,3 +31,4 @@ members = [ "."
           , "arfur-build"
           , "xtask"
           ]
+

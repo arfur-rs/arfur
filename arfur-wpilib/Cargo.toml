@@ -9,6 +9,9 @@ repository = "https://github.com/arfur-rs/arfur/"
 edition = "2021"
 rust-version = "1.62"
 
+[package.metadata.nix]
+build = true
+
 [features]
 bindgen = []
 
@@ -27,6 +30,3 @@ path = "../arfur-build"
 [build-dependencies.tokio]
 version = "1.21.0"
 features = ["macros", "rt-multi-thread"]
-
-[package.metadata.nix]
-build = true

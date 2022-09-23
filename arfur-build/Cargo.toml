@@ -9,6 +9,9 @@ repository = "https://github.com/arfur-rs/arfur/"
 edition = "2021"
 rust-version = "1.62"
 
+[package.metadata.nix]
+build = true
+
 [dependencies]
 bindgen = "0.60.1"
 color-eyre = "0.6.2"
