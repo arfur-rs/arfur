@@ -1,11 +1,12 @@
 pub mod error;
 pub mod robot;
+pub mod util;
 
 pub mod prelude {
     //! Re-export of key Arfur types, constants, and functions.
 
     pub use crate::error::{Error, Result};
-    pub use crate::robot::{Robot, UninitializedRobot};
+    pub use crate::robot::{Robot, RobotBuilder};
 
     pub use super::ffi::HAL_ObserveUserProgramDisabled;
 }

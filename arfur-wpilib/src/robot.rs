@@ -1,43 +1,50 @@
-//! Top-level robot types.
+//! Robot marker types.
 
-use std::ffi::{CString, NulError};
+use tracing::trace;
 
-use once_cell::sync::OnceCell;
-use thiserror::Error;
-
-/// A top-level robot marker type.
+/// A robot marker type.
 ///
-/// In short, a [`Robot`] is simply a marker that you have initialized the HAL,
-/// and that you have initialized it exactly once. This is necessary because
-/// running HAL methods without initialization panics, and more than one call to
-/// initialize is undefined behaviour. **Owning a `Robot` proves that the HAL is
-/// in working order**.
+/// In short, a [`Robot`] is simply a marker that you have initialized the HAL.
+/// This is necessary because running HAL methods without initialization is UD.
+/// **Owning a `Robot` proves that the HAL is in working order**.
 ///
-/// The [`Robot`] type is not constructable from other modules - there are only
-/// two ways to get access to it. You can either:
+/// You can get your hands on a [`Robot`] in one of two ways:
 ///
-///  * Construct an [`UninitializedRobot`], and run its `initialize` method, or
+///  * Construct a [`RobotBuilder`], and run its `initialize` method, or
 ///  * Unsafely construct it without initializing the HAL with [`Self::unsafe_new`].
-///
-/// Using `unsafe_new` is **not recommended** - not only does it lack the HAL
-/// initialization code entirely, it also cannot provide the one-time
-/// initialization gaurantee. This method, in fact, completely defeats the point
-/// behind this type.
-///
-/// Using [`UninitializedRobot`] is the way to go.
 ///
 /// ```
 /// # fn main() {
-/// let robot: Robot = UninitializedRobot::new().initialize();
+/// let robot: Robot = RobotBuilder::new().initialize();
 /// # }
 /// ```
 ///
-/// In fact, you can initialize [`UninitializedRobot`] numerous times, but it
-/// will always gaurantee one-time HAL initialization. An instance of [`Robot`]
-/// is stored internally during the first initialization, and you receive a copy
-/// of this value each time.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Keep in mind that [`Self::unsafe_new`] defeats the point of the builder's
+/// `initialize` method. It does not run the necessary HAL initialization code.
+/// Only use this method if you are absolutely sure you need it. Using the
+/// builder pattern more than once is perfectly fine - WPILib gaurds for double
+/// initialization of the HAL internally.
+///
+/// See: [`RobotBuilder`]
+#[derive(derive_builder::Builder, Clone, Copy, Debug, PartialEq, Eq)]
+#[builder(
+    pattern = "owned",
+    build_fn(
+        name = "initialize",
+        error = "InitializationError",
+        validate = "Self::validate"
+    ),
+    derive(PartialEq, Eq)
+)]
 pub struct Robot {
+    /// The timeout argument provided to the HAL. The HAL will try to initialize
+    /// for `hal_timeout` ms. The default value is 500.
+    #[builder(default = "500")]
+    hal_timeout: i32,
+    /// The mode argument provided to the HAL. See [`HALMode`].
+    #[builder(default)]
+    hal_mode: HALMode,
+    #[builder(default, setter(skip))]
     pub(self) _private: (),
 }
 
@@ -46,106 +53,70 @@ impl Robot {
     ///
     /// You most probably don't want to use this, because creating a Robot
     /// without initializing the HAL is undefined behaviour. Unless strictly
-    /// necessary, try using [`UninitializedRobot`] instead.
-    pub unsafe fn unsafe_new() -> Self {
-        Self { _private: () }
-    }
-}
-
-/// The one-time instance of the robot. This is used by [`UninitializedRobot`],
-/// in order to figure out what to provide as the [`Robot`] type.
-static ROBOT_INSTANCE: OnceCell<Robot> = OnceCell::new();
-
-/// An uninitialized robot type. Run [`Self::initialize`] on this type to
-/// (safely) construct a [`Robot`] type.
-///
-/// ```
-/// # fn main() {
-/// let robot: Robot = UninitializedRobot::new().initialize();
-/// # }
-/// ```
-///
-/// Running HAL commands without initializing the HAL raises a panic. An
-/// uninitialized robot type ensures that all components of the HAL are ready
-/// before running anything else. Furthermore, the [`Self::initialize`] method
-/// globally stores a one-time cell, which means that it gaurantees only one
-/// instantiation of the Robot type, and in turn, the HAL. For more
-/// justification, see [`Robot`].
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct UninitializedRobot {
-    hal_timeout: i32,
-    hal_mode: HALMode,
-}
-
-impl UninitializedRobot {
-    /// Construct an [`UninitializedRobot`].
-    pub fn new(hal_timeout: i32, hal_mode: HALMode) -> Self {
+    /// necessary, try using [`RobotBuilder`] instead.
+    pub unsafe fn unsafe_new(hal_timeout: i32, hal_mode: HALMode) -> Self {
         Self {
             hal_timeout,
             hal_mode,
-        }
-    }
-
-    /// Initialize a robot, and construct a [`Robot`].
-    pub fn initialize(self) -> Result<Robot, InitializationError> {
-        match ROBOT_INSTANCE.get() {
-            Some(robot) => {
-                tracing::trace!("Robot instance already exists, using existing version.");
-                Ok(*robot)
-            }
-            None => {
-                tracing::trace!("Creating robot instance...");
-
-                unsafe {
-                    // use crate::ffi::HAL_Initialize;
-
-                    // // Initialize the HAL.
-                    // let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
-                    // if status != 1 {
-                    //     return Err(InitializationError::HALInitializationError);
-                    // }
-
-                    // Observe the start to the driver station, or else it will
-                    // disable automatically.
-                    //
-                    // This, in fact, is a wrapper around NI's NetComm library's
-                    // report() interface.
-                    crate::ffi::HAL_ObserveUserProgramStarting();
-                }
-
-                tracing::trace!("Successfully instantiated robot!");
-                let robot = Robot { _private: () };
-                ROBOT_INSTANCE
-                    .set(robot)
-                    .map_err(|_| InitializationError::DoubleInitialization)?;
-                Ok(robot)
-            }
+            _private: (),
         }
     }
 }
 
-impl Default for UninitializedRobot {
-    fn default() -> Self {
-        Self {
-            hal_timeout: 500,
-            hal_mode: HALMode::Kill,
+impl RobotBuilder {
+    /// Validates the builder by initializing the HAL and observing user program
+    /// start.
+    fn validate(&self) -> Result<(), InitializationError> {
+        unsafe {
+            use crate::ffi::HAL_Initialize;
+
+            // Initialize the HAL.
+            let status = HAL_Initialize(self.hal_timeout.unwrap(), self.hal_mode.unwrap() as i32);
+            if status != 1 {
+                return Err(InitializationError::HALInitializationError);
+            }
+
+            // Observe the start to the driver station, or else it will
+            // disable automatically.
+            //
+            // This itself is actually a wrapper around NI's NetComm library's
+            // report() interface.
+            crate::ffi::HAL_ObserveUserProgramStarting();
         }
+
+        trace!("Successfully instantiated robot!");
+
+        Ok(())
     }
 }
 
-#[derive(Error, Clone, Debug, PartialEq, Eq)]
+/// Error type for initialization.
+#[derive(thiserror::Error, Clone, Debug, PartialEq, Eq)]
 pub enum InitializationError {
     #[error("tried to set the robot instance twice")]
     DoubleInitialization,
     #[error("failed to initilize HAL (for an unknown reason)")]
     HALInitializationError,
     #[error("failed to create a c-based string, this is probably a bug in Arfur itself and should be reported immediately")]
-    CStringConversionError(#[from] NulError),
+    CStringConversionError(#[from] std::ffi::NulError),
+    #[error("uninitialized field found while building")]
+    UninitializedFieldError(String),
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+impl From<derive_builder::UninitializedFieldError> for InitializationError {
+    fn from(e: derive_builder::UninitializedFieldError) -> Self {
+        Self::UninitializedFieldError(e.field_name().to_string())
+    }
+}
+
+/// A mode for the HAL to start up in.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub enum HALMode {
+    /// Try to kill an existing HAL from another program, if not successful, error.
+    #[default]
     Kill = 0,
+    /// Force kill a HAL from another program.
     ForceKill = 1,
+    /// Just warn if another hal exists and cannot be killed. Will likely result in undefined behavior.
     Warn = 2,
 }

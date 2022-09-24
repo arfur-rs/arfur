@@ -1,13 +1,14 @@
 use arfur::prelude::*;
 
 fn main() -> Result<()> {
-    let _robot = UninitializedRobot::default().initialize()?;
+    let _robot = RobotBuilder::default().initialize()?;
     println!("Initialized successfully.");
 
-    loop {
-        unsafe { HAL_ObserveUserProgramDisabled() };
-        std::thread::sleep(std::time::Duration::from_millis(50));
-    }
+    // That's it - it's that simple! However, if you try running this on a RIO
+    // right now, the robot code light will be red. Read ./spawn_observer.rs to
+    // understand why.
 
-    Ok(())
+    // We could choose to return Ok(()) here, but let's loop instead. This will
+    // keep our program running.
+    loop {}
 }

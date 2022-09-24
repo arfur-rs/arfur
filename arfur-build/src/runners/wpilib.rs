@@ -56,7 +56,7 @@ impl Library for WPILibLibraries {
     }
 }
 
-pub async fn run() -> Result<()> {
+pub async fn run(link_only: bool) -> Result<()> {
     use WPILibLibraries::*;
 
     // Decide the directory we want to output to. If the OUT_DIR environment
@@ -100,7 +100,7 @@ pub async fn run() -> Result<()> {
         Path::new(&out_dir),
     );
 
-    runner.run().await?;
+    runner.run(link_only).await?;
 
     Ok(())
 }

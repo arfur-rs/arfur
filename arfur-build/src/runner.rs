@@ -42,10 +42,10 @@ impl<'a, T: Library> Runner<'a, T> {
     }
 
     /// Run the build script.
-    pub async fn run(&mut self) -> Result<()> {
+    pub async fn run(&mut self, link_only: bool) -> Result<()> {
         let complete_marker_path = self.output_directory.join("arfur.complete");
 
-        if !complete_marker_path.exists() {
+        if !complete_marker_path.exists() || !link_only {
             self.download_libraries()
                 .await
                 .note("Failed to download libraries.")?;
