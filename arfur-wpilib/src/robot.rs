@@ -39,10 +39,10 @@ use tracing::trace;
 pub struct Robot {
     /// The timeout argument provided to the HAL. The HAL will try to initialize
     /// for `hal_timeout` ms. The default value is 500.
-    #[builder(default = "500")]
+    #[builder(default = "500", field(type = "i32"))]
     hal_timeout: i32,
     /// The mode argument provided to the HAL. See [`HALMode`].
-    #[builder(default)]
+    #[builder(default, field(type = "HALMode"))]
     hal_mode: HALMode,
     #[builder(default, setter(skip))]
     pub(self) _private: (),
@@ -68,10 +68,10 @@ impl RobotBuilder {
     /// start.
     fn validate(&self) -> Result<(), InitializationError> {
         unsafe {
-            use crate::ffi::HAL_Initialize;
+            use crate::ffi::{HAL_Initialize, HAL_ObserveUserProgramStarting};
 
             // Initialize the HAL.
-            let status = HAL_Initialize(self.hal_timeout.unwrap(), self.hal_mode.unwrap() as i32);
+            let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
             if status != 1 {
                 return Err(InitializationError::HALInitializationError);
             }
@@ -81,7 +81,7 @@ impl RobotBuilder {
             //
             // This itself is actually a wrapper around NI's NetComm library's
             // report() interface.
-            crate::ffi::HAL_ObserveUserProgramStarting();
+            HAL_ObserveUserProgramStarting();
         }
 
         trace!("Successfully instantiated robot!");

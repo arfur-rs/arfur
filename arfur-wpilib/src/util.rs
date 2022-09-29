@@ -1,5 +1,7 @@
 //! Small, miscellaneous, useful tools.
 
+use crate::ffi;
+
 /// The DS asks for an obervation that the program is running every 50 ms,
 /// otherwise disabling the robot. This is a simple thread that asks for the
 /// robot state and responds with the corresponding observation every 50 ms.
@@ -11,10 +13,11 @@ pub fn create_observer() -> impl Fn() -> () {
         // TODO: actually read the current state.
         loop {
             unsafe {
-                crate::ffi::HAL_ObserveUserProgramDisabled();
+                let packet = ffi::HAL_WaitForDSDataTimeout(1.);
+                if packet != 0 {
+                    // Do something here?
+                }
             }
-
-            std::thread::sleep(std::time::Duration::from_millis(50));
         }
     }
 }
