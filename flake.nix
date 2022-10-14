@@ -10,14 +10,9 @@
     nci.lib.makeOutputs {
       root = ./.;
 
-      overrides.shell = common: prev: {
-        # startup = prev.startup // {
-        #   setupStdenv.text = "${common.pkgs.llvmPackages.stdenv}/setup";
-        # };
-
-        packages =
-          prev.packages
-          ++ (with common.pkgs; [
+      config = common: {
+        shell = {
+          packages = with common.pkgs; [
             (pkgs.callPackage ./nix/wpilib-toolchain.nix {})
             pkg-config
             openssl.dev
@@ -28,11 +23,9 @@
             glibc_multi
             rust-analyzer
             mdbook
-          ]);
+          ];
 
-        env =
-          prev.env
-          ++ [
+          env = [
             {
               name = "LIBCLANG_PATH";
               eval = "${common.pkgs.libclang.lib}/lib";
@@ -49,6 +42,7 @@
                                                         "'';
             }
           ];
+        };
       };
     };
 }
