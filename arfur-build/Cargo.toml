@@ -16,4 +16,6 @@ build = true
 bindgen = "0.60.1"
 color-eyre = "0.6.2"
 reqwest = "0.11.11"
+seahash = "4.1.0"
+tracing = "0.1.37"
 zip-extract = "0.1.1"
