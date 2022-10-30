@@ -18,9 +18,18 @@ pub struct Runner<'a, T: Library> {
     /// The contents of the header file that bindgen will build.
     header_contents: &'a str,
 
+    /// The allowlist that will be passed to bindgen.
+    allowlist: &'a str,
+
+    /// A list of library names we should link to.
+    lib_list: &'a [&'a str],
+
     /// The output directory. Among other things, runner will output the .rs
     /// bindings here.
     output_directory: &'a Path,
+
+    /// Additional arguments passed to clang during bindgen.
+    clang_args: String,
 }
 
 impl<'a, T: Library> Runner<'a, T> {
@@ -30,14 +39,20 @@ impl<'a, T: Library> Runner<'a, T> {
         ni_version: &'a str,
         libraries: Vec<T>,
         header_contents: &'a str,
+        allowlist: &'a str,
+        lib_list: &'a [&'a str],
         output_directory: &'a Path,
+        clang_args: String,
     ) -> Self {
         Self {
             version,
             ni_version,
             libraries,
             header_contents,
+            allowlist,
+            lib_list,
             output_directory,
+            clang_args,
         }
     }
 
@@ -137,20 +152,6 @@ impl<'a, T: Library> Runner<'a, T> {
 
     /// Ask Cargo to link to the dynamic libraries.
     pub fn link_libraries(&mut self) -> Result<()> {
-        const LIB_LIST: &[&str] = &[
-            "cscore",
-            "embcanshim",
-            "fpgalvshim",
-            "FRC_NetworkCommunication",
-            "ntcore",
-            "RoboRIO_FRC_ChipObject",
-            "visa",
-            "wpiHal",
-            "wpilibc",
-            "wpimath",
-            "wpiutil",
-        ];
-
         let dynamic_library_dir = self
             .output_directory
             .join("raw")
@@ -158,7 +159,7 @@ impl<'a, T: Library> Runner<'a, T> {
             .join("athena")
             .join("shared");
 
-        for lib in LIB_LIST.iter() {
+        for lib in self.lib_list.iter() {
             println!("cargo:rustc-link-lib=dylib={}", lib);
         }
 
@@ -174,22 +175,25 @@ impl<'a, T: Library> Runner<'a, T> {
     pub async fn generate_bindings(&mut self) -> Result<()> {
         let raw_directory = self.output_directory.join("raw");
 
-        const ALLOWLIST: &str = "frc::(ADXRS450_Gyro|Gyro)|HAL_.*";
-
         let bindings = bindgen::Builder::default()
             // TODO: check if this works with more than one runner.
             .header_contents("runner-header", self.header_contents)
             .parse_callbacks(Box::new(bindgen::CargoCallbacks))
-            .allowlist_function(ALLOWLIST)
-            .allowlist_type(ALLOWLIST)
-            .allowlist_var(ALLOWLIST)
+            .vtable_generation(true)
+            .enable_cxx_namespaces()
+            .allowlist_function(self.allowlist)
+            .allowlist_type(self.allowlist)
+            .allowlist_var(self.allowlist)
             .clang_arg(format!("-I{}", raw_directory.to_str().unwrap()))
+            .clang_arg(self.clang_args.clone())
             .clang_arg("-std=c++17")
-            .clang_args(&["-x", "c++"])
-            .generate()
-            .note("Failed to generate bindings...")?;
+            .clang_args(&["-x", "c++"]);
+
+        println!("clang command: {:?}", bindings.command_line_flags());
 
         bindings
+            .generate()
+            .note("Failed to generate bindings...")?
             .write_to_file(self.output_directory.join("bindings.rs"))
             .note("Failed to write bindings file...")?;
 

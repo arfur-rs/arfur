@@ -13,7 +13,7 @@ pub fn create_observer() -> impl Fn() -> () {
         // TODO: actually read the current state.
         loop {
             unsafe {
-                let packet = ffi::HAL_WaitForDSDataTimeout(1.);
+                let packet = ffi::root::HAL_WaitForDSDataTimeout(1.);
                 if packet != 0 {
                     // Do something here?
                 }

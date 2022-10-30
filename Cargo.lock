@@ -30,6 +30,7 @@ dependencies = [
 name = "arfur"
 version = "0.0.1"
 dependencies = [
+ "arfur-rev",
  "arfur-wpilib",
 ]
 
@@ -39,10 +40,23 @@ version = "0.0.1"
 dependencies = [
  "bindgen",
  "color-eyre",
+ "once_cell",
  "reqwest",
  "seahash",
  "tracing",
  "zip-extract",
+]
+
+[[package]]
+name = "arfur-rev"
+version = "0.0.1"
+dependencies = [
+ "arfur-build",
+ "color-eyre",
+ "derive_builder",
+ "thiserror",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -802,9 +816,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.13.1"
+version = "1.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "074864da206b4973b84eb91683020dbefd6a8c3f0f38e054d93954e891935e4e"
+checksum = "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
 
 [[package]]
 name = "openssl"
