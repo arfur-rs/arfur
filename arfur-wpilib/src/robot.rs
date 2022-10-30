@@ -68,7 +68,7 @@ impl RobotBuilder {
     /// start.
     fn validate(&self) -> Result<(), InitializationError> {
         unsafe {
-            use crate::ffi::{HAL_Initialize, HAL_ObserveUserProgramStarting};
+            use crate::ffi::root::{HAL_Initialize, HAL_ObserveUserProgramStarting};
 
             // Initialize the HAL.
             let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);

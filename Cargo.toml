@@ -13,10 +13,12 @@ rust-version = "1.62"
 build = true
 
 [features]
-default = ["wpilib"]
+default = ["wpilib", "rev"]
 
 wpilib = ["arfur-wpilib"]
-bindgen = ["arfur-wpilib/bindgen"]
+rev = ["arfur-rev"]
+
+bindgen = ["arfur-wpilib/bindgen", "arfur-rev/bindgen"]
 
 [dependencies]
 
@@ -25,9 +27,15 @@ path = "./arfur-wpilib"
 version = "0.0.1"
 optional = true
 
+[dependencies.arfur-rev]
+path = "./arfur-rev"
+version = "0.0.1"
+optional = true
+
 [workspace]
 members = [ "."
           , "arfur-wpilib"
+          , "arfur-rev"
           , "arfur-build"
           , "xtask"
           ]

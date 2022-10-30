@@ -1,6 +1,6 @@
 [package]
-name = "arfur-wpilib"
-description = "Bindings to the WPILib suite."
+name = "arfur-rev"
+description = "Bindings to the REV framework."
 version = "0.0.1"
 
 license = "MIT"

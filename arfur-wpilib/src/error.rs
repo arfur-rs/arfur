@@ -1,4 +1,10 @@
-//! Error types with sanity.
+//! Library-wide error types.
+//!
+//! This stores two important types: [`enum@Error`], which can be made from any error
+//! type in this crate, and [`Result<T>`], which is a type alias to `Result<T,
+//! Error>`.
+//!
+//! Any error in this library can be losslessly converted to this type.
 
 use thiserror::Error;
 

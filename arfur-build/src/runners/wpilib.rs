@@ -72,6 +72,21 @@ pub async fn run(link_only: bool) -> Result<()> {
             .unwrap()
     });
 
+    const ALLOWLIST: &str = "frc::(ADXRS450_Gyro|Gyro)|HAL_.*";
+    const LIB_LIST: &[&str] = &[
+        "cscore",
+        "embcanshim",
+        "fpgalvshim",
+        "FRC_NetworkCommunication",
+        "ntcore",
+        "RoboRIO_FRC_ChipObject",
+        "visa",
+        "wpiHal",
+        "wpilibc",
+        "wpimath",
+        "wpiutil",
+    ];
+
     let mut runner = Runner::new(
         "2022.4.1",
         "2022.4.0",
@@ -97,7 +112,10 @@ pub async fn run(link_only: bool) -> Result<()> {
             CSCoreHeaders,
         ],
         HEADER,
+        ALLOWLIST,
+        LIB_LIST,
         Path::new(&out_dir),
+        String::new(),
     );
 
     runner.run(link_only).await?;
