@@ -60,7 +60,7 @@ impl<'a, T: Library> Runner<'a, T> {
     pub async fn run(&mut self, link_only: bool) -> Result<()> {
         let complete_marker_path = self.output_directory.join("arfur.complete");
 
-        if !complete_marker_path.exists() || !link_only {
+        if !complete_marker_path.exists() || link_only {
             self.download_libraries()
                 .await
                 .note("Failed to download libraries.")?;
@@ -69,6 +69,7 @@ impl<'a, T: Library> Runner<'a, T> {
                 .await
                 .note("Failed to install libraries.")?;
 
+            #[cfg(feature = "bindgen")]
             self.generate_bindings()
                 .await
                 .note("Failed to generate bindings.")?;
@@ -172,6 +173,7 @@ impl<'a, T: Library> Runner<'a, T> {
     }
 
     /// Use `bindgen` to generate bindings.
+    #[cfg(feature = "bindgen")]
     pub async fn generate_bindings(&mut self) -> Result<()> {
         let raw_directory = self.output_directory.join("raw");
 

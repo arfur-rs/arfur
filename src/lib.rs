@@ -29,5 +29,7 @@
 //! [examples](https://github.com/arfur-rs/arfur/tree/main/examples) and
 //! [documentation](https://docs.rs/arfur). There's much more to come!
 
+#[cfg(feature = "arfur-rev")]
 pub use arfur_rev as rev;
+#[cfg(feature = "arfur-wpilib")]
 pub use arfur_wpilib as wpilib;

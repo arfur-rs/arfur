@@ -13,10 +13,7 @@ rust-version = "1.62"
 build = true
 
 [features]
-default = ["wpilib", "rev"]
-
-wpilib = ["arfur-wpilib"]
-rev = ["arfur-rev"]
+default = ["arfur-wpilib", "arfur-rev"]
 
 bindgen = ["arfur-wpilib/bindgen", "arfur-rev/bindgen"]
 

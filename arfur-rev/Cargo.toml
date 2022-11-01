@@ -13,7 +13,7 @@ rust-version = "1.62"
 build = true
 
 [features]
-bindgen = []
+bindgen = ["arfur-build/bindgen"]
 
 [dependencies]
 derive_builder = "0.11.2"
