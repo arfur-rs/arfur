@@ -1,3 +1,9 @@
+pub mod controllers;
+
+pub mod prelude {
+    pub use crate::controllers::sparkmax::SparkMax;
+}
+
 #[allow(
     rustdoc::broken_intra_doc_links,
     rustdoc::bare_urls,

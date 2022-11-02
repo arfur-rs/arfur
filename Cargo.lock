@@ -52,6 +52,7 @@ name = "arfur-rev"
 version = "0.0.1"
 dependencies = [
  "arfur-build",
+ "arfur-wpilib",
  "color-eyre",
  "derive_builder",
  "thiserror",

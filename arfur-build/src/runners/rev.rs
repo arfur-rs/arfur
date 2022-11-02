@@ -10,6 +10,8 @@ use crate::{library::Library, runner::Runner};
 pub enum RevLibraries {
     RevFramework,
     RevHeaders,
+    RevDrivers,
+    RevDriverHeaders,
 }
 
 impl Library for RevLibraries {
@@ -17,6 +19,8 @@ impl Library for RevLibraries {
         match self {
             Self::RevFramework => format!("https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-{version}/REVLib-cpp-{version}-linuxathena.zip"),
             Self::RevHeaders => format!("https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-{version}/REVLib-cpp-{version}-headers.zip"),
+            Self::RevDrivers => format!("https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-{version}/REVLib-driver-{version}-linuxathena.zip"),
+            Self::RevDriverHeaders => format!("https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-{version}/REVLib-driver-{version}-headers.zip"),
         }
     }
 }
@@ -33,7 +37,7 @@ pub async fn run(link_only: bool) -> Result<()> {
     });
 
     const ALLOWLIST: &str = "rev::.*";
-    const LIB_LIST: &[&str] = &["REVLib"];
+    const LIB_LIST: &[&str] = &["REVLib", "REVLibDriver"];
 
     let mut wpilib_source_path = PathBuf::from(out_dir.clone());
     wpilib_source_path.pop();
@@ -50,7 +54,12 @@ pub async fn run(link_only: bool) -> Result<()> {
     let mut runner = Runner::new(
         "2022.1.1",
         "",
-        vec![RevLibraries::RevFramework, RevLibraries::RevHeaders],
+        vec![
+            RevLibraries::RevFramework,
+            RevLibraries::RevHeaders,
+            RevLibraries::RevDrivers,
+            RevLibraries::RevDriverHeaders,
+        ],
         HEADER,
         ALLOWLIST,
         LIB_LIST,

@@ -1,4 +1,4 @@
-use arfur::prelude::*;
+use arfur_wpilib::prelude::*;
 
 fn main() -> Result<()> {
     let _robot = RobotBuilder::default().initialize()?;
