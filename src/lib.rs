@@ -30,6 +30,13 @@
 //! [documentation](https://docs.rs/arfur). There's much more to come!
 
 #[cfg(feature = "arfur-rev")]
+#[doc(inline)]
 pub use arfur_rev as rev;
 #[cfg(feature = "arfur-wpilib")]
+#[doc(inline)]
 pub use arfur_wpilib as wpilib;
+
+pub mod prelude {
+    pub use crate::rev::prelude::*;
+    pub use crate::wpilib::prelude::*;
+}

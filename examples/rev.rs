@@ -5,9 +5,9 @@ use arfur_wpilib::prelude::*;
 
 fn main() -> Result<()> {
     let robot = RobotBuilder::default().initialize()?;
-    let mut spark = SparkMax::new(robot, 1);
+    let mut spark = SparkMax::new(robot, 17);
 
-    spark.set_percentage(1.);
+    spark.set_percentage(0.1);
     std::thread::sleep(std::time::Duration::from_secs(1));
     spark.set_percentage(0.);
 
