@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Miscellaneous Tasks
+
+- Remove code coverage badge
+
+## [0.0.2] - 2022-11-04
+
+### Bug Fixes
+
+- Initialize `ADXRS450_Gyro` just once
+- Remove raw C++
+
+### Documentation
+
+- Add ADXRS450 example
+
+### Features
+
+- Opt-in bindgen, use xtask-generated bindings by default
+- `REVLib`
+- [**breaking**] Rewrite feature structure
+- SparkMax motor controller structure
+- Add prelude
+- Enable Xbox controller
+
+### Miscellaneous Tasks
+
+- Changelog
+- Clean up repository
+- Include bindings
+- Update flake.nix
+- Update dependencies
+- Box SparkMax handle
+- Use `Arc<Mutex<CANSparkMax>>`
+- Revert attempts at asynchronous SparkMax
+- Implement send for `SpeedController__bindgen_vtable`
+
+### Refactor
+
+- Move to `bindgen`
+- Generalize `Library`
+- Implement `CachedFile`
+- Rewrite linking logic
+
 ## [0.0.1] - 2022-09-21
 
 ### Bug Fixes
@@ -16,6 +61,7 @@ All notable changes to this project will be documented in this file.
 
 ### Features
 
+- Initial commit
 - Initial build setup
 - Compile bindings and link libraries to `arfur-sys`
 - Add initial error typing
