@@ -1,8 +1,5 @@
 pub mod sparkmax {
-    use std::{
-        ffi::c_int,
-        sync::{Arc, Mutex},
-    };
+    use std::ffi::c_int;
 
     use arfur_wpilib::robot::Robot;
 
@@ -10,7 +7,7 @@ pub mod sparkmax {
 
     /// A handle to a REV CAN SparkMax motor controller.
     pub struct SparkMax {
-        handle: Arc<Mutex<CANSparkMax>>,
+        handle: CANSparkMax,
     }
 
     impl SparkMax {
@@ -21,18 +18,18 @@ pub mod sparkmax {
         pub fn new(_: Robot, id: i32) -> Self {
             let handle = unsafe { CANSparkMax::new(id as c_int, 1 as c_int) };
 
-            Self {
-                handle: Arc::new(Mutex::new(handle)),
-            }
+            Self { handle }
         }
 
         /// Set the percentage output.
         ///
         /// Safety: the percentage is a number from -1 to 1.
         pub fn set_percentage(&mut self, percentage: f64) {
-            let mut handle = &self.handle.lock();
             unsafe {
-                CANSparkMax_Set(&mut handle as *mut _ as *mut std::ffi::c_void, percentage);
+                CANSparkMax_Set(
+                    &mut self.handle as *mut _ as *mut std::ffi::c_void,
+                    percentage,
+                );
             }
         }
     }
