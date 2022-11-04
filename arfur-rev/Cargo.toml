@@ -16,7 +16,7 @@ build = true
 bindgen = ["arfur-build/bindgen", "arfur-wpilib/bindgen"]
 
 [dependencies]
-arfur-wpilib = { version = "0.0.1", path = "../arfur-wpilib" }
+arfur-wpilib = { version = "0.0.2", path = "../arfur-wpilib" }
 derive_builder = "0.11.2"
 thiserror = "1.0.32"
 tracing = "0.1.36"

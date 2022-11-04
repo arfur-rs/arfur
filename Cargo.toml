@@ -21,7 +21,7 @@ bindgen = ["arfur-wpilib/bindgen", "arfur-rev/bindgen"]
 
 [dependencies.arfur-wpilib]
 path = "./arfur-wpilib"
-version = "0.0.1"
+version = "0.0.2"
 optional = true
 
 [dependencies.arfur-rev]
