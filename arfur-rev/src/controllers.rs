@@ -7,7 +7,7 @@ pub mod sparkmax {
 
     /// A handle to a REV CAN SparkMax motor controller.
     pub struct SparkMax {
-        handle: CANSparkMax,
+        handle: Box<CANSparkMax>,
     }
 
     impl SparkMax {
@@ -18,7 +18,9 @@ pub mod sparkmax {
         pub fn new(_: Robot, id: i32) -> Self {
             let handle = unsafe { CANSparkMax::new(id as c_int, 1 as c_int) };
 
-            Self { handle }
+            Self {
+                handle: Box::new(handle),
+            }
         }
 
         /// Set the percentage output.
