@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### Documentation
+
+- Update changelog
+
 ### Miscellaneous Tasks
 
 - Remove code coverage badge
