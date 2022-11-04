@@ -72,7 +72,7 @@ pub async fn run(link_only: bool) -> Result<()> {
             .unwrap()
     });
 
-    const ALLOWLIST: &str = "frc::(ADXRS450_Gyro|Gyro)|HAL_.*";
+    const ALLOWLIST: &str = "frc::(ADXRS450_Gyro|Gyro|XboxController)|HAL_.*";
     const LIB_LIST: &[&str] = &[
         "cscore",
         "embcanshim",

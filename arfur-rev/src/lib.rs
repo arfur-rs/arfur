@@ -20,5 +20,3 @@ pub mod ffi {
     #[cfg(not(feature = "bindgen"))]
     include!("./bindings.rs");
 }
-
-unsafe impl Send for ffi::root::frc::SpeedController__bindgen_vtable {}

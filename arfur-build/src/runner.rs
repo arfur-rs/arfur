@@ -181,7 +181,6 @@ impl<'a, T: Library> Runner<'a, T> {
             // TODO: check if this works with more than one runner.
             .header_contents("runner-header", self.header_contents)
             .parse_callbacks(Box::new(bindgen::CargoCallbacks))
-            .vtable_generation(true)
             .enable_cxx_namespaces()
             .allowlist_function(self.allowlist)
             .allowlist_type(self.allowlist)

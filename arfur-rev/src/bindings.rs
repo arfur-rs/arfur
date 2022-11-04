@@ -118,14 +118,7 @@ pub mod root {
             root::rev::REVLibError = 20;
         pub type REVLibError = ::std::os::raw::c_int;
         #[repr(C)]
-        pub struct AnalogInput__bindgen_vtable {
-            pub AnalogInput_GetVoltage: unsafe extern "C" fn(this: *const AnalogInput) -> f64,
-            pub AnalogInput_GetPosition: unsafe extern "C" fn(this: *const AnalogInput) -> f64,
-            pub AnalogInput_SetPositionConversionFactor:
-                unsafe extern "C" fn(this: *mut AnalogInput, factor: f64) -> root::rev::REVLibError,
-            pub AnalogInput_GetPositionConversionFactor:
-                unsafe extern "C" fn(this: *const AnalogInput) -> f64,
-        }
+        pub struct AnalogInput__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " Get an instance of AnalogInput by using"]
         #[doc = " CANSparkMax::GetAnalog(SparkMaxAnalogSensor::Mode)}."]
         #[repr(C)]
@@ -147,13 +140,7 @@ pub mod root {
             );
         }
         #[repr(C)]
-        pub struct CANSensor__bindgen_vtable {
-            pub CANSensor_SetInverted: unsafe extern "C" fn(
-                this: *mut CANSensor,
-                inverted: bool,
-            ) -> root::rev::REVLibError,
-            pub CANSensor_GetInverted: unsafe extern "C" fn(this: *const CANSensor) -> bool,
-        }
+        pub struct CANSensor__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " @deprecated Use MotorFeedbackSensor instead"]
         #[repr(C)]
         #[derive(Debug)]
@@ -221,16 +208,7 @@ pub mod root {
             );
         }
         #[repr(C)]
-        pub struct CANDigitalInput__bindgen_vtable {
-            pub CANDigitalInput_Get: unsafe extern "C" fn(this: *const CANDigitalInput) -> bool,
-            pub CANDigitalInput_EnableLimitSwitch: unsafe extern "C" fn(
-                this: *mut CANDigitalInput,
-                enable: bool,
-            )
-                -> root::rev::REVLibError,
-            pub CANDigitalInput_IsLimitSwitchEnabled:
-                unsafe extern "C" fn(this: *const CANDigitalInput) -> bool,
-        }
+        pub struct CANDigitalInput__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " @deprecated Use SparkMaxLimitSwitch instead"]
         #[repr(C)]
         #[derive(Debug)]
@@ -294,159 +272,7 @@ pub mod root {
         #[doc = " @deprecated Use CANSparkMax::ControlType instead"]
         pub type ControlType = ::std::os::raw::c_int;
         #[repr(C)]
-        pub struct CANPIDController__bindgen_vtable {
-            pub CANPIDController_SetReference: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                value: f64,
-                ctrl: root::rev::ControlType,
-                pidSlot: ::std::os::raw::c_int,
-                arbFeedforward: f64,
-                arbFFUnits: root::rev::CANPIDController_ArbFFUnits,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_SetP: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                gain: f64,
-                slotID: ::std::os::raw::c_int,
-            ) -> root::rev::REVLibError,
-            pub CANPIDController_SetI: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                gain: f64,
-                slotID: ::std::os::raw::c_int,
-            ) -> root::rev::REVLibError,
-            pub CANPIDController_SetD: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                gain: f64,
-                slotID: ::std::os::raw::c_int,
-            ) -> root::rev::REVLibError,
-            pub CANPIDController_SetDFilter: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                gain: f64,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_SetFF: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                gain: f64,
-                slotID: ::std::os::raw::c_int,
-            ) -> root::rev::REVLibError,
-            pub CANPIDController_SetIZone: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                IZone: f64,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_SetOutputRange: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                min: f64,
-                max: f64,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_GetP: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetI: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetD: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetDFilter: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetFF: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetIZone: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetOutputMin: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetOutputMax: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_SetSmartMotionMaxVelocity:
-                unsafe extern "C" fn(
-                    this: *mut CANPIDController,
-                    maxVel: f64,
-                    slotID: ::std::os::raw::c_int,
-                ) -> root::rev::REVLibError,
-            pub CANPIDController_SetSmartMotionMaxAccel:
-                unsafe extern "C" fn(
-                    this: *mut CANPIDController,
-                    maxAccel: f64,
-                    slotID: ::std::os::raw::c_int,
-                ) -> root::rev::REVLibError,
-            pub CANPIDController_SetSmartMotionMinOutputVelocity:
-                unsafe extern "C" fn(
-                    this: *mut CANPIDController,
-                    minVel: f64,
-                    slotID: ::std::os::raw::c_int,
-                ) -> root::rev::REVLibError,
-            pub CANPIDController_SetSmartMotionAllowedClosedLoopError:
-                unsafe extern "C" fn(
-                    this: *mut CANPIDController,
-                    allowedErr: f64,
-                    slotID: ::std::os::raw::c_int,
-                ) -> root::rev::REVLibError,
-            pub CANPIDController_SetSmartMotionAccelStrategy:
-                unsafe extern "C" fn(
-                    this: *mut CANPIDController,
-                    accelStrategy: root::rev::CANPIDController_AccelStrategy,
-                    slotID: ::std::os::raw::c_int,
-                ) -> root::rev::REVLibError,
-            pub CANPIDController_GetSmartMotionMaxVelocity: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> f64,
-            pub CANPIDController_GetSmartMotionMaxAccel: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_GetSmartMotionMinOutputVelocity: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> f64,
-            pub CANPIDController_GetSmartMotionAllowedClosedLoopError: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> f64,
-            pub CANPIDController_SetIMaxAccum: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                iMaxAccum: f64,
-                slotID: ::std::os::raw::c_int,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_GetIMaxAccum: unsafe extern "C" fn(
-                this: *const CANPIDController,
-                slotID: ::std::os::raw::c_int,
-            ) -> f64,
-            pub CANPIDController_SetIAccum: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                iAccum: f64,
-            )
-                -> root::rev::REVLibError,
-            pub CANPIDController_GetIAccum:
-                unsafe extern "C" fn(this: *const CANPIDController) -> f64,
-            pub CANPIDController_SetFeedbackDevice: unsafe extern "C" fn(
-                this: *mut CANPIDController,
-                sensor: *const root::rev::CANSensor,
-            )
-                -> root::rev::REVLibError,
-        }
+        pub struct CANPIDController__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " @deprecated Use SparkMaxPIDController instead"]
         #[repr(C)]
         #[derive(Debug)]
@@ -6161,20 +5987,7 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
         #[repr(C)]
-        pub struct SpeedController__bindgen_vtable {
-            pub SpeedController_Set: unsafe extern "C" fn(this: *mut SpeedController, speed: f64),
-            pub SpeedController_SetVoltage: unsafe extern "C" fn(
-                this: *mut SpeedController,
-                output: root::units::voltage::volt_t,
-            ),
-            pub SpeedController_Get: unsafe extern "C" fn(this: *const SpeedController) -> f64,
-            pub SpeedController_SetInverted:
-                unsafe extern "C" fn(this: *mut SpeedController, isInverted: bool),
-            pub SpeedController_GetInverted:
-                unsafe extern "C" fn(this: *const SpeedController) -> bool,
-            pub SpeedController_Disable: unsafe extern "C" fn(this: *mut SpeedController),
-            pub SpeedController_StopMotor: unsafe extern "C" fn(this: *mut SpeedController),
-        }
+        pub struct SpeedController__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " Interface for speed controlling devices."]
         #[doc = ""]
         #[doc = " @deprecated Use MotorController."]

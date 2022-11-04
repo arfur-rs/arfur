@@ -104,8 +104,57 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
         pub type size_t = ::std::os::raw::c_ulong;
+        #[repr(C)]
+        pub struct basic_string<_CharT> {
+            pub _M_dataplus: root::std::basic_string__Alloc_hider,
+            pub _M_string_length: root::std::basic_string_size_type,
+            pub __bindgen_anon_1: root::std::basic_string__bindgen_ty_2<_CharT>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_CharT>>,
+        }
+        pub type basic_string__Char_alloc_type = root::__gnu_cxx::__alloc_traits;
+        pub type basic_string__Alloc_traits = root::__gnu_cxx::__alloc_traits;
+        pub type basic_string_traits_type<_Traits> = _Traits;
+        pub type basic_string_value_type = [u8; 0usize];
+        pub type basic_string_allocator_type = root::std::basic_string__Char_alloc_type;
+        pub type basic_string_size_type = root::std::basic_string__Alloc_traits;
+        pub type basic_string_difference_type = root::std::basic_string__Alloc_traits;
+        pub type basic_string_reference = root::std::basic_string__Alloc_traits;
+        pub type basic_string_const_reference = root::std::basic_string__Alloc_traits;
+        pub type basic_string_pointer = root::std::basic_string__Alloc_traits;
+        pub type basic_string_const_pointer = root::std::basic_string__Alloc_traits;
+        pub type basic_string_iterator =
+            root::__gnu_cxx::__normal_iterator<root::std::basic_string_pointer>;
+        pub type basic_string_const_iterator =
+            root::__gnu_cxx::__normal_iterator<root::std::basic_string_const_pointer>;
+        pub type basic_string_const_reverse_iterator =
+            root::std::reverse_iterator<root::std::basic_string_const_iterator>;
+        pub type basic_string_reverse_iterator =
+            root::std::reverse_iterator<root::std::basic_string_iterator>;
+        pub type basic_string___const_iterator = root::std::basic_string_const_iterator;
+        pub type basic_string___sv_type<_CharT> = root::std::basic_string_view<_CharT>;
+        pub type basic_string__If_sv = root::std::enable_if_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct basic_string___sv_wrapper<_CharT> {
+            pub _M_sv: root::std::basic_string___sv_type<_CharT>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_CharT>>,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct basic_string__Alloc_hider {
+            pub _M_p: root::std::basic_string_pointer,
+        }
+        pub const basic_string__S_local_capacity: root::std::basic_string__bindgen_ty_1 = 0;
+        pub type basic_string__bindgen_ty_1 = i32;
+        #[repr(C)]
+        pub union basic_string__bindgen_ty_2<_CharT> {
+            pub _M_local_buf: *mut _CharT,
+            pub _M_allocated_capacity: root::std::basic_string_size_type,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_CharT>>,
+        }
         pub type integral_constant_value_type<_Tp> = _Tp;
         pub type integral_constant_type = u8;
+        pub type true_type = u8;
         pub type false_type = u8;
         pub type __bool_constant = u8;
         #[repr(C)]
@@ -115,11 +164,32 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct is_empty {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct remove_cv {
             pub _address: u8,
         }
         pub type remove_cv_type<_Tp> = _Tp;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct make_unsigned {
+            pub _address: u8,
+        }
+        pub type make_unsigned_type = u8;
         pub type __enable_if_t = u8;
+        pub type enable_if_t = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __detector {
+            pub _address: u8,
+        }
+        pub type __detector_value_t = root::std::false_type;
+        pub type __detector_type<_Default> = _Default;
+        pub type __detected_or = root::std::__detector;
+        pub type __detected_or_t = root::std::__detected_or;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct iterator {
@@ -142,6 +212,35 @@ pub mod root {
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct __replace_first_arg {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __ptr_traits_elem_1 {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __ptr_traits_elem {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct pointer_traits {
+            pub _address: u8,
+        }
+        pub type pointer_traits___difference_type = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct pointer_traits___rebind {
+            pub _address: u8,
+        }
+        pub type pointer_traits_pointer<_Ptr> = _Ptr;
+        pub type pointer_traits_difference_type = root::std::__detected_or_t;
+        pub type pointer_traits_rebind = root::std::pointer_traits___rebind;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct reverse_iterator<_Iterator> {
             pub current: _Iterator,
             pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Iterator>>,
@@ -155,6 +254,104 @@ pub mod root {
             #[allow(unused_imports)]
             use self::super::super::super::root;
         }
+        pub type __allocator_base = root::__gnu_cxx::new_allocator;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct allocator {
+            pub _address: u8,
+        }
+        pub type allocator_value_type<_Tp> = _Tp;
+        pub type allocator_size_type = root::std::size_t;
+        pub type allocator_difference_type = isize;
+        pub type allocator_pointer<_Tp> = *mut _Tp;
+        pub type allocator_const_pointer<_Tp> = *const _Tp;
+        pub type allocator_reference<_Tp> = *mut _Tp;
+        pub type allocator_const_reference<_Tp> = *const _Tp;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_rebind {
+            pub _address: u8,
+        }
+        pub type allocator_rebind_other = root::std::allocator;
+        pub type allocator_propagate_on_container_move_assignment = root::std::true_type;
+        pub type allocator_is_always_equal = root::std::true_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __allocator_traits_base {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __allocator_traits_base___rebind {
+            pub _address: u8,
+        }
+        pub type __allocator_traits_base___pointer = [u8; 0usize];
+        pub type __allocator_traits_base___c_pointer = [u8; 0usize];
+        pub type __allocator_traits_base___v_pointer = [u8; 0usize];
+        pub type __allocator_traits_base___cv_pointer = [u8; 0usize];
+        pub type __allocator_traits_base___pocca = [u8; 0usize];
+        pub type __allocator_traits_base___pocma = [u8; 0usize];
+        pub type __allocator_traits_base___pocs = [u8; 0usize];
+        pub type __allocator_traits_base___equal = [u8; 0usize];
+        #[test]
+        fn bindgen_test_layout___allocator_traits_base() {
+            assert_eq!(
+                ::std::mem::size_of::<__allocator_traits_base>(),
+                1usize,
+                concat!("Size of: ", stringify!(__allocator_traits_base))
+            );
+            assert_eq!(
+                ::std::mem::align_of::<__allocator_traits_base>(),
+                1usize,
+                concat!("Alignment of ", stringify!(__allocator_traits_base))
+            );
+        }
+        pub type __alloc_rebind = root::std::__allocator_traits_base;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_traits {
+            pub _address: u8,
+        }
+        pub type allocator_traits_allocator_type<_Alloc> = _Alloc;
+        pub type allocator_traits_value_type = [u8; 0usize];
+        pub type allocator_traits_pointer = root::std::__detected_or_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_traits__Ptr {
+            pub _address: u8,
+        }
+        pub type allocator_traits__Ptr_type = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_traits__Diff {
+            pub _address: u8,
+        }
+        pub type allocator_traits__Diff_type = root::std::pointer_traits;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_traits__Size {
+            pub _address: u8,
+        }
+        pub type allocator_traits_const_pointer = [u8; 0usize];
+        pub type allocator_traits_void_pointer = root::std::allocator_traits__Ptr;
+        pub type allocator_traits_const_void_pointer = root::std::allocator_traits__Ptr;
+        pub type allocator_traits_difference_type = [u8; 0usize];
+        pub type allocator_traits_size_type = [u8; 0usize];
+        pub type allocator_traits_propagate_on_container_copy_assignment =
+            root::std::__detected_or_t;
+        pub type allocator_traits_propagate_on_container_move_assignment =
+            root::std::__detected_or_t;
+        pub type allocator_traits_propagate_on_container_swap = root::std::__detected_or_t;
+        pub type allocator_traits_is_always_equal = root::std::__detected_or_t;
+        pub type allocator_traits_rebind_alloc = root::std::__alloc_rebind;
+        pub type allocator_traits_rebind_traits = root::std::allocator_traits;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_traits___construct_helper {
+            pub _address: u8,
+        }
+        pub type allocator_traits___construct_helper_type<_Alloc> = _Alloc;
+        pub type allocator_traits___has_construct = root::std::allocator_traits___construct_helper;
         pub type _TupleConstraints_is_constructible = root::std::__bool_constant;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -200,6 +397,16 @@ pub mod root {
         pub type unique_ptr_element_type<_Tp> = _Tp;
         pub type unique_ptr_deleter_type<_Dp> = _Dp;
         pub type unique_ptr___safe_conversion_up = root::std::__and_;
+        pub type string = root::std::basic_string<::std::os::raw::c_char>;
+        pub type streamoff = ::std::os::raw::c_long;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct fpos<_StateT> {
+            pub _M_off: root::std::streamoff,
+            pub _M_state: _StateT,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_StateT>>,
+        }
+        pub type streampos = root::std::fpos<root::mbstate_t>;
         extern "C" {
             #[link_name = "\u{1}num"]
             pub static ratio_num: root::intmax_t;
@@ -228,11 +435,223 @@ pub mod root {
             #[allow(unused_imports)]
             use self::super::super::super::root;
         }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct char_traits {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct basic_string_view<_CharT> {
+            pub _M_len: root::std::size_t,
+            pub _M_str: *const _CharT,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_CharT>>,
+        }
+        pub type basic_string_view_traits_type<_Traits> = _Traits;
+        pub type basic_string_view_value_type<_CharT> = _CharT;
+        pub type basic_string_view_pointer<_CharT> =
+            *mut root::std::basic_string_view_value_type<_CharT>;
+        pub type basic_string_view_const_pointer<_CharT> =
+            *const root::std::basic_string_view_value_type<_CharT>;
+        pub type basic_string_view_reference<_CharT> =
+            *mut root::std::basic_string_view_value_type<_CharT>;
+        pub type basic_string_view_const_reference<_CharT> =
+            *const root::std::basic_string_view_value_type<_CharT>;
+        pub type basic_string_view_const_iterator<_CharT> =
+            *const root::std::basic_string_view_value_type<_CharT>;
+        pub type basic_string_view_iterator<_CharT> =
+            root::std::basic_string_view_const_iterator<_CharT>;
+        pub type basic_string_view_const_reverse_iterator<_CharT> =
+            root::std::reverse_iterator<root::std::basic_string_view_const_iterator<_CharT>>;
+        pub type basic_string_view_reverse_iterator<_CharT> =
+            root::std::basic_string_view_const_reverse_iterator<_CharT>;
+        pub type basic_string_view_size_type = root::std::size_t;
+        pub type basic_string_view_difference_type = isize;
     }
     pub mod __gnu_cxx {
         #[allow(unused_imports)]
         use self::super::super::root;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __normal_iterator<_Iterator> {
+            pub _M_current: _Iterator,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Iterator>>,
+        }
+        pub type __normal_iterator___traits_type = root::std::iterator_traits;
+        pub type __normal_iterator_iterator_type<_Iterator> = _Iterator;
+        pub type __normal_iterator_iterator_category =
+            root::__gnu_cxx::__normal_iterator___traits_type;
+        pub type __normal_iterator_value_type = root::__gnu_cxx::__normal_iterator___traits_type;
+        pub type __normal_iterator_difference_type =
+            root::__gnu_cxx::__normal_iterator___traits_type;
+        pub type __normal_iterator_reference = root::__gnu_cxx::__normal_iterator___traits_type;
+        pub type __normal_iterator_pointer = root::__gnu_cxx::__normal_iterator___traits_type;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct new_allocator {
+            pub _address: u8,
+        }
+        pub type new_allocator_value_type<_Tp> = _Tp;
+        pub type new_allocator_size_type = root::std::size_t;
+        pub type new_allocator_difference_type = isize;
+        pub type new_allocator_pointer<_Tp> = *mut _Tp;
+        pub type new_allocator_const_pointer<_Tp> = *const _Tp;
+        pub type new_allocator_reference<_Tp> = *mut _Tp;
+        pub type new_allocator_const_reference<_Tp> = *const _Tp;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct new_allocator_rebind {
+            pub _address: u8,
+        }
+        pub type new_allocator_propagate_on_container_move_assignment = root::std::true_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __alloc_traits {
+            pub _address: u8,
+        }
+        pub type __alloc_traits_allocator_type<_Alloc> = _Alloc;
+        pub type __alloc_traits__Base_type = root::std::allocator_traits;
+        pub type __alloc_traits_value_type = root::__gnu_cxx::__alloc_traits__Base_type;
+        pub type __alloc_traits_pointer = root::__gnu_cxx::__alloc_traits__Base_type;
+        pub type __alloc_traits_const_pointer = root::__gnu_cxx::__alloc_traits__Base_type;
+        pub type __alloc_traits_size_type = root::__gnu_cxx::__alloc_traits__Base_type;
+        pub type __alloc_traits_difference_type = root::__gnu_cxx::__alloc_traits__Base_type;
+        pub type __alloc_traits_reference = *mut root::__gnu_cxx::__alloc_traits_value_type;
+        pub type __alloc_traits_const_reference = *const root::__gnu_cxx::__alloc_traits_value_type;
+        pub type __alloc_traits___is_custom_pointer = root::std::__and_;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct __alloc_traits_rebind {
+            pub _address: u8,
+        }
+        pub type __alloc_traits_rebind_other = root::__gnu_cxx::__alloc_traits__Base_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct _Char_types {
+            pub _address: u8,
+        }
+        pub type _Char_types_int_type = ::std::os::raw::c_ulong;
+        pub type _Char_types_pos_type = root::std::streampos;
+        pub type _Char_types_off_type = root::std::streamoff;
+        pub type _Char_types_state_type = root::mbstate_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct char_traits {
+            pub _address: u8,
+        }
+        pub type char_traits_char_type<_CharT> = _CharT;
+        pub type char_traits_int_type = root::__gnu_cxx::_Char_types;
+        pub type char_traits_pos_type = root::__gnu_cxx::_Char_types;
+        pub type char_traits_off_type = root::__gnu_cxx::_Char_types;
+        pub type char_traits_state_type = root::__gnu_cxx::_Char_types;
     }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct __mbstate_t {
+        pub __count: ::std::os::raw::c_int,
+        pub __value: root::__mbstate_t__bindgen_ty_1,
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub union __mbstate_t__bindgen_ty_1 {
+        pub __wch: ::std::os::raw::c_uint,
+        pub __wchb: [::std::os::raw::c_char; 4usize],
+    }
+    #[test]
+    fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
+        assert_eq!(
+            ::std::mem::size_of::<__mbstate_t__bindgen_ty_1>(),
+            4usize,
+            concat!("Size of: ", stringify!(__mbstate_t__bindgen_ty_1))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<__mbstate_t__bindgen_ty_1>(),
+            4usize,
+            concat!("Alignment of ", stringify!(__mbstate_t__bindgen_ty_1))
+        );
+        fn test_field___wch() {
+            assert_eq!(
+                unsafe {
+                    let uninit = ::std::mem::MaybeUninit::<__mbstate_t__bindgen_ty_1>::uninit();
+                    let ptr = uninit.as_ptr();
+                    ::std::ptr::addr_of!((*ptr).__wch) as usize - ptr as usize
+                },
+                0usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(__mbstate_t__bindgen_ty_1),
+                    "::",
+                    stringify!(__wch)
+                )
+            );
+        }
+        test_field___wch();
+        fn test_field___wchb() {
+            assert_eq!(
+                unsafe {
+                    let uninit = ::std::mem::MaybeUninit::<__mbstate_t__bindgen_ty_1>::uninit();
+                    let ptr = uninit.as_ptr();
+                    ::std::ptr::addr_of!((*ptr).__wchb) as usize - ptr as usize
+                },
+                0usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(__mbstate_t__bindgen_ty_1),
+                    "::",
+                    stringify!(__wchb)
+                )
+            );
+        }
+        test_field___wchb();
+    }
+    #[test]
+    fn bindgen_test_layout___mbstate_t() {
+        assert_eq!(
+            ::std::mem::size_of::<__mbstate_t>(),
+            8usize,
+            concat!("Size of: ", stringify!(__mbstate_t))
+        );
+        assert_eq!(
+            ::std::mem::align_of::<__mbstate_t>(),
+            4usize,
+            concat!("Alignment of ", stringify!(__mbstate_t))
+        );
+        fn test_field___count() {
+            assert_eq!(
+                unsafe {
+                    let uninit = ::std::mem::MaybeUninit::<__mbstate_t>::uninit();
+                    let ptr = uninit.as_ptr();
+                    ::std::ptr::addr_of!((*ptr).__count) as usize - ptr as usize
+                },
+                0usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(__mbstate_t),
+                    "::",
+                    stringify!(__count)
+                )
+            );
+        }
+        test_field___count();
+        fn test_field___value() {
+            assert_eq!(
+                unsafe {
+                    let uninit = ::std::mem::MaybeUninit::<__mbstate_t>::uninit();
+                    let ptr = uninit.as_ptr();
+                    ::std::ptr::addr_of!((*ptr).__value) as usize - ptr as usize
+                },
+                4usize,
+                concat!(
+                    "Offset of field: ",
+                    stringify!(__mbstate_t),
+                    "::",
+                    stringify!(__value)
+                )
+            );
+        }
+        test_field___value();
+    }
+    pub type mbstate_t = root::__mbstate_t;
     pub mod __pstl {
         #[allow(unused_imports)]
         use self::super::super::root;
@@ -268,10 +687,7 @@ pub mod root {
             _unused: [u8; 0],
         }
         #[repr(C)]
-        pub struct Sendable__bindgen_vtable {
-            pub Sendable_InitSendable:
-                unsafe extern "C" fn(this: *mut Sendable, builder: *mut root::wpi::SendableBuilder),
-        }
+        pub struct Sendable__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " Interface for Sendable objects."]
         #[repr(C)]
         #[derive(Debug)]
@@ -1228,16 +1644,7 @@ pub mod root {
         pub const AnalogTriggerType_kFallingPulse: root::frc::AnalogTriggerType = 3;
         pub type AnalogTriggerType = ::std::os::raw::c_int;
         #[repr(C)]
-        pub struct DigitalSource__bindgen_vtable {
-            pub DigitalSource_GetPortHandleForRouting:
-                unsafe extern "C" fn(this: *const DigitalSource) -> root::HAL_Handle,
-            pub DigitalSource_GetAnalogTriggerTypeForRouting:
-                unsafe extern "C" fn(this: *const DigitalSource) -> root::frc::AnalogTriggerType,
-            pub DigitalSource_IsAnalogTrigger:
-                unsafe extern "C" fn(this: *const DigitalSource) -> bool,
-            pub DigitalSource_GetChannel:
-                unsafe extern "C" fn(this: *const DigitalSource) -> ::std::os::raw::c_int,
-        }
+        pub struct DigitalSource__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " DigitalSource Interface."]
         #[doc = ""]
         #[doc = " The DigitalSource represents all the possible inputs for a counter or a"]
@@ -2176,12 +2583,7 @@ pub mod root {
             }
         }
         #[repr(C)]
-        pub struct Gyro__bindgen_vtable {
-            pub Gyro_Calibrate: unsafe extern "C" fn(this: *mut Gyro),
-            pub Gyro_Reset: unsafe extern "C" fn(this: *mut Gyro),
-            pub Gyro_GetAngle: unsafe extern "C" fn(this: *const Gyro) -> f64,
-            pub Gyro_GetRate: unsafe extern "C" fn(this: *const Gyro) -> f64,
-        }
+        pub struct Gyro__bindgen_vtable(::std::os::raw::c_void);
         #[doc = " Interface for yaw rate gyros."]
         #[repr(C)]
         #[derive(Debug)]
@@ -2328,6 +2730,877 @@ pub mod root {
                 this: *mut ::std::os::raw::c_void,
                 builder: *mut root::wpi::SendableBuilder,
             );
+        }
+        #[repr(C)]
+        pub struct GenericHID__bindgen_vtable(::std::os::raw::c_void);
+        #[doc = " Handle input from standard HID devices connected to the Driver Station."]
+        #[doc = ""]
+        #[doc = " <p>This class handles standard input that comes from the Driver Station. Each"]
+        #[doc = " time a value is requested the most recent value is returned. There is a"]
+        #[doc = " single class instance for each device and the mapping of ports to hardware"]
+        #[doc = " buttons depends on the code in the Driver Station."]
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct GenericHID {
+            pub vtable_: *const GenericHID__bindgen_vtable,
+            pub m_port: ::std::os::raw::c_int,
+            pub m_outputs: ::std::os::raw::c_int,
+            pub m_leftRumble: u16,
+            pub m_rightRumble: u16,
+        }
+        pub const GenericHID_RumbleType_kLeftRumble: root::frc::GenericHID_RumbleType = 0;
+        pub const GenericHID_RumbleType_kRightRumble: root::frc::GenericHID_RumbleType = 1;
+        pub type GenericHID_RumbleType = ::std::os::raw::c_uint;
+        pub const GenericHID_HIDType_kUnknown: root::frc::GenericHID_HIDType = -1;
+        pub const GenericHID_HIDType_kXInputUnknown: root::frc::GenericHID_HIDType = 0;
+        pub const GenericHID_HIDType_kXInputGamepad: root::frc::GenericHID_HIDType = 1;
+        pub const GenericHID_HIDType_kXInputWheel: root::frc::GenericHID_HIDType = 2;
+        pub const GenericHID_HIDType_kXInputArcadeStick: root::frc::GenericHID_HIDType = 3;
+        pub const GenericHID_HIDType_kXInputFlightStick: root::frc::GenericHID_HIDType = 4;
+        pub const GenericHID_HIDType_kXInputDancePad: root::frc::GenericHID_HIDType = 5;
+        pub const GenericHID_HIDType_kXInputGuitar: root::frc::GenericHID_HIDType = 6;
+        pub const GenericHID_HIDType_kXInputGuitar2: root::frc::GenericHID_HIDType = 7;
+        pub const GenericHID_HIDType_kXInputDrumKit: root::frc::GenericHID_HIDType = 8;
+        pub const GenericHID_HIDType_kXInputGuitar3: root::frc::GenericHID_HIDType = 11;
+        pub const GenericHID_HIDType_kXInputArcadePad: root::frc::GenericHID_HIDType = 19;
+        pub const GenericHID_HIDType_kHIDJoystick: root::frc::GenericHID_HIDType = 20;
+        pub const GenericHID_HIDType_kHIDGamepad: root::frc::GenericHID_HIDType = 21;
+        pub const GenericHID_HIDType_kHIDDriving: root::frc::GenericHID_HIDType = 22;
+        pub const GenericHID_HIDType_kHIDFlight: root::frc::GenericHID_HIDType = 23;
+        pub const GenericHID_HIDType_kHID1stPerson: root::frc::GenericHID_HIDType = 24;
+        pub type GenericHID_HIDType = ::std::os::raw::c_int;
+        #[test]
+        fn bindgen_test_layout_GenericHID() {
+            assert_eq!(
+                ::std::mem::size_of::<GenericHID>(),
+                24usize,
+                concat!("Size of: ", stringify!(GenericHID))
+            );
+            assert_eq!(
+                ::std::mem::align_of::<GenericHID>(),
+                8usize,
+                concat!("Alignment of ", stringify!(GenericHID))
+            );
+            fn test_field_m_port() {
+                assert_eq!(
+                    unsafe {
+                        let uninit = ::std::mem::MaybeUninit::<GenericHID>::uninit();
+                        let ptr = uninit.as_ptr();
+                        ::std::ptr::addr_of!((*ptr).m_port) as usize - ptr as usize
+                    },
+                    8usize,
+                    concat!(
+                        "Offset of field: ",
+                        stringify!(GenericHID),
+                        "::",
+                        stringify!(m_port)
+                    )
+                );
+            }
+            test_field_m_port();
+            fn test_field_m_outputs() {
+                assert_eq!(
+                    unsafe {
+                        let uninit = ::std::mem::MaybeUninit::<GenericHID>::uninit();
+                        let ptr = uninit.as_ptr();
+                        ::std::ptr::addr_of!((*ptr).m_outputs) as usize - ptr as usize
+                    },
+                    12usize,
+                    concat!(
+                        "Offset of field: ",
+                        stringify!(GenericHID),
+                        "::",
+                        stringify!(m_outputs)
+                    )
+                );
+            }
+            test_field_m_outputs();
+            fn test_field_m_leftRumble() {
+                assert_eq!(
+                    unsafe {
+                        let uninit = ::std::mem::MaybeUninit::<GenericHID>::uninit();
+                        let ptr = uninit.as_ptr();
+                        ::std::ptr::addr_of!((*ptr).m_leftRumble) as usize - ptr as usize
+                    },
+                    16usize,
+                    concat!(
+                        "Offset of field: ",
+                        stringify!(GenericHID),
+                        "::",
+                        stringify!(m_leftRumble)
+                    )
+                );
+            }
+            test_field_m_leftRumble();
+            fn test_field_m_rightRumble() {
+                assert_eq!(
+                    unsafe {
+                        let uninit = ::std::mem::MaybeUninit::<GenericHID>::uninit();
+                        let ptr = uninit.as_ptr();
+                        ::std::ptr::addr_of!((*ptr).m_rightRumble) as usize - ptr as usize
+                    },
+                    18usize,
+                    concat!(
+                        "Offset of field: ",
+                        stringify!(GenericHID),
+                        "::",
+                        stringify!(m_rightRumble)
+                    )
+                );
+            }
+            test_field_m_rightRumble();
+        }
+        extern "C" {
+            #[doc = " Get the button value (starting at button 1)."]
+            #[doc = ""]
+            #[doc = " The buttons are returned in a single 16 bit value with one bit representing"]
+            #[doc = " the state of each button. The appropriate button is returned as a boolean"]
+            #[doc = " value."]
+            #[doc = ""]
+            #[doc = " This method returns true if the button is being held down at the time"]
+            #[doc = " that this method is being called."]
+            #[doc = ""]
+            #[doc = " @param button The button number to be read (starting at 1)"]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID12GetRawButtonEi"]
+            pub fn GenericHID_GetRawButton(
+                this: *const root::frc::GenericHID,
+                button: ::std::os::raw::c_int,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the button was pressed since the last check. %Button indexes begin"]
+            #[doc = " at 1."]
+            #[doc = ""]
+            #[doc = " This method returns true if the button went from not pressed to held down"]
+            #[doc = " since the last time this method was called. This is useful if you only"]
+            #[doc = " want to call a function once when you press the button."]
+            #[doc = ""]
+            #[doc = " @param button The button index, beginning at 1."]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc10GenericHID19GetRawButtonPressedEi"]
+            pub fn GenericHID_GetRawButtonPressed(
+                this: *mut root::frc::GenericHID,
+                button: ::std::os::raw::c_int,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the button was released since the last check. %Button indexes begin"]
+            #[doc = " at 1."]
+            #[doc = ""]
+            #[doc = " This method returns true if the button went from held down to not pressed"]
+            #[doc = " since the last time this method was called. This is useful if you only"]
+            #[doc = " want to call a function once when you release the button."]
+            #[doc = ""]
+            #[doc = " @param button The button index, beginning at 1."]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc10GenericHID20GetRawButtonReleasedEi"]
+            pub fn GenericHID_GetRawButtonReleased(
+                this: *mut root::frc::GenericHID,
+                button: ::std::os::raw::c_int,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Get the value of the axis."]
+            #[doc = ""]
+            #[doc = " @param axis The axis to read, starting at 0."]
+            #[doc = " @return The value of the axis."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID10GetRawAxisEi"]
+            pub fn GenericHID_GetRawAxis(
+                this: *const root::frc::GenericHID,
+                axis: ::std::os::raw::c_int,
+            ) -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the angle in degrees of a POV on the HID."]
+            #[doc = ""]
+            #[doc = " The POV angles start at 0 in the up direction, and increase clockwise"]
+            #[doc = " (e.g. right is 90, upper-left is 315)."]
+            #[doc = ""]
+            #[doc = " @param pov The index of the POV to read (starting at 0)"]
+            #[doc = " @return the angle of the POV in degrees, or -1 if the POV is not pressed."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID6GetPOVEi"]
+            pub fn GenericHID_GetPOV(
+                this: *const root::frc::GenericHID,
+                pov: ::std::os::raw::c_int,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Get the number of axes for the HID."]
+            #[doc = ""]
+            #[doc = " @return the number of axis for the current HID"]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID12GetAxisCountEv"]
+            pub fn GenericHID_GetAxisCount(
+                this: *const root::frc::GenericHID,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Get the number of POVs for the HID."]
+            #[doc = ""]
+            #[doc = " @return the number of POVs for the current HID"]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID11GetPOVCountEv"]
+            pub fn GenericHID_GetPOVCount(
+                this: *const root::frc::GenericHID,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Get the number of buttons for the HID."]
+            #[doc = ""]
+            #[doc = " @return the number of buttons on the current HID"]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID14GetButtonCountEv"]
+            pub fn GenericHID_GetButtonCount(
+                this: *const root::frc::GenericHID,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Get if the HID is connected."]
+            #[doc = ""]
+            #[doc = " @return true if the HID is connected"]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID11IsConnectedEv"]
+            pub fn GenericHID_IsConnected(this: *const root::frc::GenericHID) -> bool;
+        }
+        extern "C" {
+            #[doc = " Get the type of the HID."]
+            #[doc = ""]
+            #[doc = " @return the type of the HID."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID7GetTypeEv"]
+            pub fn GenericHID_GetType(
+                this: *const root::frc::GenericHID,
+            ) -> root::frc::GenericHID_HIDType;
+        }
+        extern "C" {
+            #[doc = " Get the name of the HID."]
+            #[doc = ""]
+            #[doc = " @return the name of the HID."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID7GetNameB5cxx11Ev"]
+            pub fn GenericHID_GetName(this: *const root::frc::GenericHID) -> root::std::string;
+        }
+        extern "C" {
+            #[doc = " Get the axis type of a joystick axis."]
+            #[doc = ""]
+            #[doc = " @return the axis type of a joystick axis."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID11GetAxisTypeEi"]
+            pub fn GenericHID_GetAxisType(
+                this: *const root::frc::GenericHID,
+                axis: ::std::os::raw::c_int,
+            ) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Get the port number of the HID."]
+            #[doc = ""]
+            #[doc = " @return The port number of the HID."]
+            #[link_name = "\u{1}_ZNK3frc10GenericHID7GetPortEv"]
+            pub fn GenericHID_GetPort(this: *const root::frc::GenericHID) -> ::std::os::raw::c_int;
+        }
+        extern "C" {
+            #[doc = " Set a single HID output value for the HID."]
+            #[doc = ""]
+            #[doc = " @param outputNumber The index of the output to set (1-32)"]
+            #[doc = " @param value        The value to set the output to"]
+            #[link_name = "\u{1}_ZN3frc10GenericHID9SetOutputEib"]
+            pub fn GenericHID_SetOutput(
+                this: *mut root::frc::GenericHID,
+                outputNumber: ::std::os::raw::c_int,
+                value: bool,
+            );
+        }
+        extern "C" {
+            #[doc = " Set all output values for the HID."]
+            #[doc = ""]
+            #[doc = " @param value The 32 bit output value (1 bit for each output)"]
+            #[link_name = "\u{1}_ZN3frc10GenericHID10SetOutputsEi"]
+            pub fn GenericHID_SetOutputs(
+                this: *mut root::frc::GenericHID,
+                value: ::std::os::raw::c_int,
+            );
+        }
+        extern "C" {
+            #[doc = " Set the rumble output for the HID."]
+            #[doc = ""]
+            #[doc = " The DS currently supports 2 rumble values, left rumble and right rumble."]
+            #[doc = ""]
+            #[doc = " @param type  Which rumble value to set"]
+            #[doc = " @param value The normalized value (0 to 1) to set the rumble to"]
+            #[link_name = "\u{1}_ZN3frc10GenericHID9SetRumbleENS0_10RumbleTypeEd"]
+            pub fn GenericHID_SetRumble(
+                this: *mut root::frc::GenericHID,
+                type_: root::frc::GenericHID_RumbleType,
+                value: f64,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}_ZN3frc10GenericHIDC1Ei"]
+            pub fn GenericHID_GenericHID(
+                this: *mut root::frc::GenericHID,
+                port: ::std::os::raw::c_int,
+            );
+        }
+        impl GenericHID {
+            #[inline]
+            pub unsafe fn GetRawButton(&self, button: ::std::os::raw::c_int) -> bool {
+                GenericHID_GetRawButton(self, button)
+            }
+            #[inline]
+            pub unsafe fn GetRawButtonPressed(&mut self, button: ::std::os::raw::c_int) -> bool {
+                GenericHID_GetRawButtonPressed(self, button)
+            }
+            #[inline]
+            pub unsafe fn GetRawButtonReleased(&mut self, button: ::std::os::raw::c_int) -> bool {
+                GenericHID_GetRawButtonReleased(self, button)
+            }
+            #[inline]
+            pub unsafe fn GetRawAxis(&self, axis: ::std::os::raw::c_int) -> f64 {
+                GenericHID_GetRawAxis(self, axis)
+            }
+            #[inline]
+            pub unsafe fn GetPOV(&self, pov: ::std::os::raw::c_int) -> ::std::os::raw::c_int {
+                GenericHID_GetPOV(self, pov)
+            }
+            #[inline]
+            pub unsafe fn GetAxisCount(&self) -> ::std::os::raw::c_int {
+                GenericHID_GetAxisCount(self)
+            }
+            #[inline]
+            pub unsafe fn GetPOVCount(&self) -> ::std::os::raw::c_int {
+                GenericHID_GetPOVCount(self)
+            }
+            #[inline]
+            pub unsafe fn GetButtonCount(&self) -> ::std::os::raw::c_int {
+                GenericHID_GetButtonCount(self)
+            }
+            #[inline]
+            pub unsafe fn IsConnected(&self) -> bool {
+                GenericHID_IsConnected(self)
+            }
+            #[inline]
+            pub unsafe fn GetType(&self) -> root::frc::GenericHID_HIDType {
+                GenericHID_GetType(self)
+            }
+            #[inline]
+            pub unsafe fn GetName(&self) -> root::std::string {
+                GenericHID_GetName(self)
+            }
+            #[inline]
+            pub unsafe fn GetAxisType(&self, axis: ::std::os::raw::c_int) -> ::std::os::raw::c_int {
+                GenericHID_GetAxisType(self, axis)
+            }
+            #[inline]
+            pub unsafe fn GetPort(&self) -> ::std::os::raw::c_int {
+                GenericHID_GetPort(self)
+            }
+            #[inline]
+            pub unsafe fn SetOutput(&mut self, outputNumber: ::std::os::raw::c_int, value: bool) {
+                GenericHID_SetOutput(self, outputNumber, value)
+            }
+            #[inline]
+            pub unsafe fn SetOutputs(&mut self, value: ::std::os::raw::c_int) {
+                GenericHID_SetOutputs(self, value)
+            }
+            #[inline]
+            pub unsafe fn SetRumble(
+                &mut self,
+                type_: root::frc::GenericHID_RumbleType,
+                value: f64,
+            ) {
+                GenericHID_SetRumble(self, type_, value)
+            }
+            #[inline]
+            pub unsafe fn new(port: ::std::os::raw::c_int) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                GenericHID_GenericHID(__bindgen_tmp.as_mut_ptr(), port);
+                __bindgen_tmp.assume_init()
+            }
+        }
+        #[doc = " Handle input from Xbox 360 or Xbox One controllers connected to the Driver"]
+        #[doc = " Station."]
+        #[doc = ""]
+        #[doc = " This class handles Xbox input that comes from the Driver Station. Each time a"]
+        #[doc = " value is requested the most recent value is returned. There is a single class"]
+        #[doc = " instance for each controller and the mapping of ports to hardware buttons"]
+        #[doc = " depends on the code in the Driver Station."]
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct XboxController {
+            pub _base: root::frc::GenericHID,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct XboxController_Button {
+            pub _address: u8,
+        }
+        pub const XboxController_Button_kLeftBumper: ::std::os::raw::c_int = 5;
+        pub const XboxController_Button_kRightBumper: ::std::os::raw::c_int = 6;
+        pub const XboxController_Button_kLeftStick: ::std::os::raw::c_int = 9;
+        pub const XboxController_Button_kRightStick: ::std::os::raw::c_int = 10;
+        pub const XboxController_Button_kA: ::std::os::raw::c_int = 1;
+        pub const XboxController_Button_kB: ::std::os::raw::c_int = 2;
+        pub const XboxController_Button_kX: ::std::os::raw::c_int = 3;
+        pub const XboxController_Button_kY: ::std::os::raw::c_int = 4;
+        pub const XboxController_Button_kBack: ::std::os::raw::c_int = 7;
+        pub const XboxController_Button_kStart: ::std::os::raw::c_int = 8;
+        #[test]
+        fn bindgen_test_layout_XboxController_Button() {
+            assert_eq!(
+                ::std::mem::size_of::<XboxController_Button>(),
+                1usize,
+                concat!("Size of: ", stringify!(XboxController_Button))
+            );
+            assert_eq!(
+                ::std::mem::align_of::<XboxController_Button>(),
+                1usize,
+                concat!("Alignment of ", stringify!(XboxController_Button))
+            );
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct XboxController_Axis {
+            pub _address: u8,
+        }
+        pub const XboxController_Axis_kLeftX: ::std::os::raw::c_int = 0;
+        pub const XboxController_Axis_kRightX: ::std::os::raw::c_int = 4;
+        pub const XboxController_Axis_kLeftY: ::std::os::raw::c_int = 1;
+        pub const XboxController_Axis_kRightY: ::std::os::raw::c_int = 5;
+        pub const XboxController_Axis_kLeftTrigger: ::std::os::raw::c_int = 2;
+        pub const XboxController_Axis_kRightTrigger: ::std::os::raw::c_int = 3;
+        #[test]
+        fn bindgen_test_layout_XboxController_Axis() {
+            assert_eq!(
+                ::std::mem::size_of::<XboxController_Axis>(),
+                1usize,
+                concat!("Size of: ", stringify!(XboxController_Axis))
+            );
+            assert_eq!(
+                ::std::mem::align_of::<XboxController_Axis>(),
+                1usize,
+                concat!("Alignment of ", stringify!(XboxController_Axis))
+            );
+        }
+        #[test]
+        fn bindgen_test_layout_XboxController() {
+            assert_eq!(
+                ::std::mem::size_of::<XboxController>(),
+                24usize,
+                concat!("Size of: ", stringify!(XboxController))
+            );
+            assert_eq!(
+                ::std::mem::align_of::<XboxController>(),
+                8usize,
+                concat!("Alignment of ", stringify!(XboxController))
+            );
+        }
+        extern "C" {
+            #[doc = " Get the X axis value of left side of the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController8GetLeftXEv"]
+            pub fn XboxController_GetLeftX(this: *const root::frc::XboxController) -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the X axis value of right side of the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController9GetRightXEv"]
+            pub fn XboxController_GetRightX(this: *const root::frc::XboxController) -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the Y axis value of left side of the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController8GetLeftYEv"]
+            pub fn XboxController_GetLeftY(this: *const root::frc::XboxController) -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the Y axis value of right side of the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController9GetRightYEv"]
+            pub fn XboxController_GetRightY(this: *const root::frc::XboxController) -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the left trigger (LT) axis value of the controller. Note that this axis"]
+            #[doc = " is bound to the range of [0, 1] as opposed to the usual [-1, 1]."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController18GetLeftTriggerAxisEv"]
+            pub fn XboxController_GetLeftTriggerAxis(this: *const root::frc::XboxController)
+                -> f64;
+        }
+        extern "C" {
+            #[doc = " Get the right trigger (RT) axis value of the controller. Note that this"]
+            #[doc = " axis is bound to the range of [0, 1] as opposed to the usual [-1, 1]."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController19GetRightTriggerAxisEv"]
+            pub fn XboxController_GetRightTriggerAxis(
+                this: *const root::frc::XboxController,
+            ) -> f64;
+        }
+        extern "C" {
+            #[doc = " Read the value of the left bumper (LB) button on the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController13GetLeftBumperEv"]
+            pub fn XboxController_GetLeftBumper(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the right bumper (RB) button on the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController14GetRightBumperEv"]
+            pub fn XboxController_GetRightBumper(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the left bumper (LB) was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController20GetLeftBumperPressedEv"]
+            pub fn XboxController_GetLeftBumperPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the right bumper (RB) was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController21GetRightBumperPressedEv"]
+            pub fn XboxController_GetRightBumperPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the left bumper (LB) was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController21GetLeftBumperReleasedEv"]
+            pub fn XboxController_GetLeftBumperReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the right bumper (RB) was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController22GetRightBumperReleasedEv"]
+            pub fn XboxController_GetRightBumperReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the left stick button (LSB) on the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController18GetLeftStickButtonEv"]
+            pub fn XboxController_GetLeftStickButton(
+                this: *const root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the right stick button (RSB) on the controller."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController19GetRightStickButtonEv"]
+            pub fn XboxController_GetRightStickButton(
+                this: *const root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the left stick button (LSB) was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController25GetLeftStickButtonPressedEv"]
+            pub fn XboxController_GetLeftStickButtonPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the right stick button (RSB) was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController26GetRightStickButtonPressedEv"]
+            pub fn XboxController_GetRightStickButtonPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the left stick button (LSB) was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController26GetLeftStickButtonReleasedEv"]
+            pub fn XboxController_GetLeftStickButtonReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the right stick button (RSB) was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController27GetRightStickButtonReleasedEv"]
+            pub fn XboxController_GetRightStickButtonReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the A button on the controller."]
+            #[doc = ""]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController10GetAButtonEv"]
+            pub fn XboxController_GetAButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the A button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController17GetAButtonPressedEv"]
+            pub fn XboxController_GetAButtonPressed(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the A button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController18GetAButtonReleasedEv"]
+            pub fn XboxController_GetAButtonReleased(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the B button on the controller."]
+            #[doc = ""]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController10GetBButtonEv"]
+            pub fn XboxController_GetBButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the B button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController17GetBButtonPressedEv"]
+            pub fn XboxController_GetBButtonPressed(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the B button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController18GetBButtonReleasedEv"]
+            pub fn XboxController_GetBButtonReleased(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the X button on the controller."]
+            #[doc = ""]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController10GetXButtonEv"]
+            pub fn XboxController_GetXButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the X button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController17GetXButtonPressedEv"]
+            pub fn XboxController_GetXButtonPressed(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the X button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController18GetXButtonReleasedEv"]
+            pub fn XboxController_GetXButtonReleased(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the Y button on the controller."]
+            #[doc = ""]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController10GetYButtonEv"]
+            pub fn XboxController_GetYButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the Y button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController17GetYButtonPressedEv"]
+            pub fn XboxController_GetYButtonPressed(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the Y button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController18GetYButtonReleasedEv"]
+            pub fn XboxController_GetYButtonReleased(this: *mut root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the Y button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController13GetBackButtonEv"]
+            pub fn XboxController_GetBackButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the back button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController20GetBackButtonPressedEv"]
+            pub fn XboxController_GetBackButtonPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the back button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController21GetBackButtonReleasedEv"]
+            pub fn XboxController_GetBackButtonReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Read the value of the start button on the controller."]
+            #[doc = ""]
+            #[doc = " @return The state of the button."]
+            #[link_name = "\u{1}_ZNK3frc14XboxController14GetStartButtonEv"]
+            pub fn XboxController_GetStartButton(this: *const root::frc::XboxController) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the start button was pressed since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was pressed since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController21GetStartButtonPressedEv"]
+            pub fn XboxController_GetStartButtonPressed(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Whether the start button was released since the last check."]
+            #[doc = ""]
+            #[doc = " @return Whether the button was released since the last check."]
+            #[link_name = "\u{1}_ZN3frc14XboxController22GetStartButtonReleasedEv"]
+            pub fn XboxController_GetStartButtonReleased(
+                this: *mut root::frc::XboxController,
+            ) -> bool;
+        }
+        extern "C" {
+            #[doc = " Construct an instance of an Xbox controller."]
+            #[doc = ""]
+            #[doc = " The controller index is the USB port on the Driver Station."]
+            #[doc = ""]
+            #[doc = " @param port The port on the Driver Station that the controller is plugged"]
+            #[doc = "             into (0-5)."]
+            #[link_name = "\u{1}_ZN3frc14XboxControllerC1Ei"]
+            pub fn XboxController_XboxController(
+                this: *mut root::frc::XboxController,
+                port: ::std::os::raw::c_int,
+            );
+        }
+        impl XboxController {
+            #[inline]
+            pub unsafe fn GetLeftX(&self) -> f64 {
+                XboxController_GetLeftX(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightX(&self) -> f64 {
+                XboxController_GetRightX(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftY(&self) -> f64 {
+                XboxController_GetLeftY(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightY(&self) -> f64 {
+                XboxController_GetRightY(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftTriggerAxis(&self) -> f64 {
+                XboxController_GetLeftTriggerAxis(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightTriggerAxis(&self) -> f64 {
+                XboxController_GetRightTriggerAxis(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftBumper(&self) -> bool {
+                XboxController_GetLeftBumper(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightBumper(&self) -> bool {
+                XboxController_GetRightBumper(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftBumperPressed(&mut self) -> bool {
+                XboxController_GetLeftBumperPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightBumperPressed(&mut self) -> bool {
+                XboxController_GetRightBumperPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftBumperReleased(&mut self) -> bool {
+                XboxController_GetLeftBumperReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightBumperReleased(&mut self) -> bool {
+                XboxController_GetRightBumperReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftStickButton(&self) -> bool {
+                XboxController_GetLeftStickButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightStickButton(&self) -> bool {
+                XboxController_GetRightStickButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftStickButtonPressed(&mut self) -> bool {
+                XboxController_GetLeftStickButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightStickButtonPressed(&mut self) -> bool {
+                XboxController_GetRightStickButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetLeftStickButtonReleased(&mut self) -> bool {
+                XboxController_GetLeftStickButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetRightStickButtonReleased(&mut self) -> bool {
+                XboxController_GetRightStickButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetAButton(&self) -> bool {
+                XboxController_GetAButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetAButtonPressed(&mut self) -> bool {
+                XboxController_GetAButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetAButtonReleased(&mut self) -> bool {
+                XboxController_GetAButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetBButton(&self) -> bool {
+                XboxController_GetBButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetBButtonPressed(&mut self) -> bool {
+                XboxController_GetBButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetBButtonReleased(&mut self) -> bool {
+                XboxController_GetBButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetXButton(&self) -> bool {
+                XboxController_GetXButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetXButtonPressed(&mut self) -> bool {
+                XboxController_GetXButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetXButtonReleased(&mut self) -> bool {
+                XboxController_GetXButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetYButton(&self) -> bool {
+                XboxController_GetYButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetYButtonPressed(&mut self) -> bool {
+                XboxController_GetYButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetYButtonReleased(&mut self) -> bool {
+                XboxController_GetYButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetBackButton(&self) -> bool {
+                XboxController_GetBackButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetBackButtonPressed(&mut self) -> bool {
+                XboxController_GetBackButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetBackButtonReleased(&mut self) -> bool {
+                XboxController_GetBackButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn GetStartButton(&self) -> bool {
+                XboxController_GetStartButton(self)
+            }
+            #[inline]
+            pub unsafe fn GetStartButtonPressed(&mut self) -> bool {
+                XboxController_GetStartButtonPressed(self)
+            }
+            #[inline]
+            pub unsafe fn GetStartButtonReleased(&mut self) -> bool {
+                XboxController_GetStartButtonReleased(self)
+            }
+            #[inline]
+            pub unsafe fn new(port: ::std::os::raw::c_int) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                XboxController_XboxController(__bindgen_tmp.as_mut_ptr(), port);
+                __bindgen_tmp.assume_init()
+            }
         }
     }
     pub const HAL_SPIPort_HAL_SPI_kInvalid: root::HAL_SPIPort = -1;
@@ -3408,6 +4681,64 @@ pub mod root {
         #[doc = " If HAL_SetMain() has been called, this calls the exit function provided"]
         #[doc = " to that function."]
         pub fn HAL_ExitMain();
+    }
+    #[test]
+    fn __bindgen_test_layout_basic_string_open0_char_char_traits_open1_char_close1_allocator_open1_char_close1_close0_instantiation(
+    ) {
+        assert_eq!(
+            ::std::mem::size_of::<root::std::basic_string<::std::os::raw::c_char>>(),
+            32usize,
+            concat!(
+                "Size of template specialization: ",
+                stringify!(root::std::basic_string<::std::os::raw::c_char>)
+            )
+        );
+        assert_eq!(
+            ::std::mem::align_of::<root::std::basic_string<::std::os::raw::c_char>>(),
+            8usize,
+            concat!(
+                "Alignment of template specialization: ",
+                stringify!(root::std::basic_string<::std::os::raw::c_char>)
+            )
+        );
+    }
+    #[test]
+    fn __bindgen_test_layout_char_traits_open0_char_close0_instantiation() {
+        assert_eq!(
+            ::std::mem::size_of::<root::std::char_traits>(),
+            1usize,
+            concat!(
+                "Size of template specialization: ",
+                stringify!(root::std::char_traits)
+            )
+        );
+        assert_eq!(
+            ::std::mem::align_of::<root::std::char_traits>(),
+            1usize,
+            concat!(
+                "Alignment of template specialization: ",
+                stringify!(root::std::char_traits)
+            )
+        );
+    }
+    #[test]
+    fn __bindgen_test_layout_allocator_open0_char_close0_instantiation() {
+        assert_eq!(
+            ::std::mem::size_of::<root::std::allocator>(),
+            1usize,
+            concat!(
+                "Size of template specialization: ",
+                stringify!(root::std::allocator)
+            )
+        );
+        assert_eq!(
+            ::std::mem::align_of::<root::std::allocator>(),
+            1usize,
+            concat!(
+                "Alignment of template specialization: ",
+                stringify!(root::std::allocator)
+            )
+        );
     }
     #[test]
     fn __bindgen_test_layout_base_unit_open0_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_ratio_open1_close1_close0_instantiation(
