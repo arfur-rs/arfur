@@ -61,14 +61,6 @@ impl<'a, T: Library> Runner<'a, T> {
         let complete_marker_path = self.output_directory.join("arfur.complete");
 
         if !complete_marker_path.exists() && !link_only {
-            self.download_libraries()
-                .await
-                .note("Failed to download libraries.")?;
-
-            self.install_libraries()
-                .await
-                .note("Failed to install libraries.")?;
-
             #[cfg(feature = "bindgen")]
             self.generate_bindings()
                 .await
@@ -78,6 +70,14 @@ impl<'a, T: Library> Runner<'a, T> {
         } else {
             println!("Built copy found, not building again...");
         }
+
+        self.download_libraries()
+            .await
+            .note("Failed to download libraries.")?;
+
+        self.install_libraries()
+            .await
+            .note("Failed to install libraries.")?;
 
         self.link_libraries()
             .note("Failed to ask Cargo to link to libraries.")?;
