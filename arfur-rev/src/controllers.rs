@@ -17,7 +17,7 @@ pub mod sparkmax {
         /// # Safety
         /// `id` is a valid CAN id, the motor type is internally ensured.
         pub fn new(_: Robot, id: i32) -> Self {
-            let handle = unsafe { CANSparkMax::new(id as c_int, 1 as c_int) };
+            let handle = unsafe { CANSparkMax::new(id as c_int, 0 as c_int) };
 
             Self { handle }
         }
