@@ -84,6 +84,7 @@ impl RobotBuilder {
             HAL_ObserveUserProgramStarting();
         }
 
+        println!("Instantiated.");
         trace!("Successfully instantiated robot!");
 
         Ok(())

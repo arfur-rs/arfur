@@ -52,7 +52,7 @@ pub async fn run(link_only: bool) -> Result<()> {
         .unwrap();
 
     let mut runner = Runner::new(
-        "2022.1.1",
+        "2022.1.0",
         "",
         vec![
             RevLibraries::RevFramework,
