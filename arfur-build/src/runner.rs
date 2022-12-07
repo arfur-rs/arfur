@@ -1,4 +1,6 @@
-use std::{fs, io::Cursor, os::unix::fs::PermissionsExt, path::Path};
+#[cfg(unix)]
+use std::os::unix::fs::PermissionsExt;
+use std::{fs, io::Cursor, path::Path};
 
 use crate::library::Library;
 
@@ -122,10 +124,16 @@ impl<'a, T: Library> Runner<'a, T> {
             .join("athena")
             .join("shared");
 
-        fs::set_permissions(&dynamic_library_dir, fs::Permissions::from_mode(0o755))?;
+        #[cfg(unix)]
+        {
+            fs::set_permissions(&dynamic_library_dir, fs::Permissions::from_mode(0o755))?;
+        }
         for file in fs::read_dir(&dynamic_library_dir)? {
             let file = file?;
-            fs::set_permissions(&file.path(), fs::Permissions::from_mode(0o755))?;
+            #[cfg(unix)]
+            {
+                fs::set_permissions(&file.path(), fs::Permissions::from_mode(0o755))?;
+            }
 
             if file.file_name().to_str().unwrap().ends_with(".debug") {
                 // If it's a debug file, just delete it.
