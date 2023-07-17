@@ -7,12 +7,9 @@ fn main() -> Result<()> {
     let robot = RobotBuilder::default().initialize()?;
     let mut spark = SparkMax::new(robot, 16);
 
-    spark.reset();
+    spark.set_percentage(0.5);
 
-    loop {
-        spark.set_percentage(0.5);
-        std::thread::sleep(std::time::Duration::from_secs(1));
-        spark.set_percentage(0.);
-        std::thread::sleep(std::time::Duration::from_secs(1));
-    }
+    loop {}
 }
+
+struct MyRobot;
