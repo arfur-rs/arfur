@@ -1,3 +1,8 @@
+//! Build script runner. Given a set of libraries to be installed as well as
+//! some meta information such as versions, allowlists, etc., the `Runner` type
+//! will create a runnable script (started with [`Runner::run`]) that will
+//! install and generate bindings to all aforementioned libraries.
+
 #[cfg(unix)]
 use std::os::unix::fs::PermissionsExt;
 use std::{fs, io::Cursor, path::Path};
