@@ -30,29 +30,31 @@
         nci.projects.arfur.relPath = "";
 
         devShells.default = config.nci.outputs.arfur.devShell.overrideAttrs (rust: {
-          packages =
-            (with pkgs; [
-              (pkgs.callPackage ./nix/wpilib-toolchain.nix {})
+          packages = with pkgs; [
+            (pkgs.callPackage ./nix/wpilib-toolchain.nix {})
 
-              pkg-config
-              openssl.dev
-              cargo-outdated
-              cargo-audit
-              cargo-release
-              git-cliff
-              glibc_multi
-              rust-analyzer
-            ]);
+            pkg-config
+            openssl.dev
+            cargo-outdated
+            cargo-audit
+            cargo-release
+            cargo-edit
+            git-cliff
+            glibc_multi
+            rust-analyzer
+          ];
 
           env."LIBCLANG_PATH" = "${pkgs.libclang.lib}/lib";
-          env."BINDGEN_EXTRA_CLANG_ARGS" = with pkgs; ''                  "$(< ${stdenv.cc}/nix-support/libc-crt1-cflags) \
-                                                            $(< ${stdenv.cc}/nix-support/libc-cflags) \
-                                                            $(< ${stdenv.cc}/nix-support/cc-cflags) \
-                                                            $(< ${stdenv.cc}/nix-support/libcxx-cxxflags) \
-                                                            ${lib.optionalString stdenv.cc.isClang "-idirafter ${stdenv.cc.cc}/lib/clang/${lib.getVersion stdenv.cc.cc}/include"} \
-                                                            ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config} -idirafter ${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.config}/${lib.getVersion stdenv.cc.cc}/include"} \
-                                                            -I ${glibc_multi.dev}/include/ -L ${glibc_multi}/lib
-                                                          "'';
+          env."BINDGEN_EXTRA_CLANG_ARGS" = with pkgs; ''
+            ${builtins.readFile "${stdenv.cc}/nix-support/libc-crt1-cflags"}
+            ${builtins.readFile "${stdenv.cc}/nix-support/libc-cflags"}
+            ${builtins.readFile "${stdenv.cc}/nix-support/cc-cflags"}
+            ${builtins.readFile "${stdenv.cc}/nix-support/libcxx-cxxflags"}
+
+            ${lib.optionalString stdenv.cc.isClang "-idirafter ${stdenv.cc.cc}/lib/clang/${lib.getVersion stdenv.cc.cc}/include"}
+            ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config} -idirafter ${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.config}/${lib.getVersion stdenv.cc.cc}/include"}
+            -I ${glibc_multi.dev}/include/ -L ${glibc_multi}/lib
+          '';
         });
       };
     };

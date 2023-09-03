@@ -17,8 +17,8 @@ bindgen = ["arfur-build/bindgen"]
 
 [dependencies]
 derive_builder = "0.11.2"
-thiserror = "1.0.32"
-tracing = "0.1.36"
+thiserror = "1.0.48"
+tracing = "0.1.37"
 
 [build-dependencies]
 color-eyre = "0.6.2"
@@ -28,5 +28,5 @@ version = "0.0.2"
 path = "../arfur-build"
 
 [build-dependencies.tokio]
-version = "1.21.0"
+version = "1.29.1"
 features = ["macros", "rt-multi-thread"]

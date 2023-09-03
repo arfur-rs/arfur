@@ -48,4 +48,10 @@ Due to the inherently complex nature of generate bindings for large projects, Ar
 cargo xtask bindgen
 ```
 
-This will generate the bindings as necessary.
+This will generate the bindings as necessary. Then, run:
+
+```
+cargo b --example raw_usage --target arm-unknown-linux-gnueabi
+```
+
+To build an example.

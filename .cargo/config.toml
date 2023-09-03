@@ -2,7 +2,7 @@
 xtask = "run --package xtask --"
 
 [target.arm-unknown-linux-gnueabi]
-linker = "arm-frc2022-linux-gnueabi-gcc"
+linker = "arm-frc2023-linux-gnueabi-gcc"
 rustflags = [
   "-C", "target-cpu=cortex-a9",
 ]

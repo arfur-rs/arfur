@@ -5,8 +5,10 @@ use std::{fs, io::Cursor, path::Path};
 use crate::library::Library;
 
 use color_eyre::{Help, Result};
+use tracing::{info, trace};
 
 /// The main build script runner. See [`Self::run`] for more details.
+#[derive(Debug)]
 pub struct Runner<'a, T: Library> {
     /// The desired WPILib version.
     version: &'a str,
@@ -60,29 +62,31 @@ impl<'a, T: Library> Runner<'a, T> {
 
     /// Run the build script.
     pub async fn run(&mut self, link_only: bool) -> Result<()> {
+        trace!("Running the build script. {self:?}, link_only: {link_only}");
+
         let complete_marker_path = self.output_directory.join("arfur.complete");
 
         if !complete_marker_path.exists() && !link_only {
-            #[cfg(feature = "bindgen")]
-            self.generate_bindings()
-                .await
-                .note("Failed to generate bindings.")?;
+            info!("Downloading, installing, and linking libraries...");
 
-            self.cleanup().note("Failed to clean up after build.")?;
-        } else {
-            println!("Built copy found, not building again...");
+            self.download_libraries()
+                .await
+                .note("Failed to download libraries.")?;
+
+            self.install_libraries()
+                .await
+                .note("Failed to install libraries.")?;
+
+            self.link_libraries()
+                .note("Failed to ask Cargo to link to libraries.")?;
         }
 
-        self.download_libraries()
+        #[cfg(feature = "bindgen")]
+        self.generate_bindings()
             .await
-            .note("Failed to download libraries.")?;
+            .note("Failed to generate bindings.")?;
 
-        self.install_libraries()
-            .await
-            .note("Failed to install libraries.")?;
-
-        self.link_libraries()
-            .note("Failed to ask Cargo to link to libraries.")?;
+        self.cleanup().note("Failed to clean up after build.")?;
 
         Ok(())
     }
@@ -193,12 +197,14 @@ impl<'a, T: Library> Runner<'a, T> {
             .allowlist_function(self.allowlist)
             .allowlist_type(self.allowlist)
             .allowlist_var(self.allowlist)
+            .manually_drop_union(".*")
+            .default_non_copy_union_style(bindgen::NonCopyUnionStyle::ManuallyDrop)
             .clang_arg(format!("-I{}", raw_directory.to_str().unwrap()))
             .clang_arg(self.clang_args.clone())
             .clang_arg("-std=c++17")
             .clang_args(&["-x", "c++"]);
 
-        println!("clang command: {:?}", bindings.command_line_flags());
+        trace!("clang command: {:?}", bindings.command_line_flags());
 
         bindings
             .generate()

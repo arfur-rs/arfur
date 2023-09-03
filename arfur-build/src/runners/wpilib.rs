@@ -5,6 +5,7 @@ use crate::{library::Library, runner::Runner};
 use color_eyre::eyre::Result;
 use tracing::trace;
 
+#[derive(Debug)]
 pub enum WPILibLibraries {
     HAL,
     HALHeaders,
@@ -60,7 +61,7 @@ impl Library for WPILibLibraries {
 pub async fn run(link_only: bool) -> Result<()> {
     use WPILibLibraries::*;
 
-    tracing::info!("Running WPILIB runner...");
+    trace!("Running WPILIB runner...");
 
     // Decide the directory we want to output to. If the OUT_DIR environment
     // variable exists, we're in a build script, and spit it out there. If not,
@@ -74,6 +75,8 @@ pub async fn run(link_only: bool) -> Result<()> {
             .into_string()
             .unwrap()
     });
+
+    trace!("Outputting to {out_dir}...");
 
     const ALLOWLIST: &str = "frc::(ADXRS450_Gyro|Gyro|XboxController|TimedRobot|TimesliceRobot|IterativeRobotBase|RobotBase)|HAL_.*";
     const LIB_LIST: &[&str] = &[
@@ -129,8 +132,8 @@ pub async fn run(link_only: bool) -> Result<()> {
 pub const HEADER: &str = r##"
 #pragma once
 
-#include "frc/ADIS16448_IMU.h"
-#include "frc/ADIS16470_IMU.h"
+// #include "frc/ADIS16448_IMU.h"
+// #include "frc/ADIS16470_IMU.h"
 #include "frc/ADXL345_I2C.h"
 #include "frc/ADXL345_SPI.h"
 #include "frc/ADXL362.h"

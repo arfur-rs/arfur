@@ -9,8 +9,8 @@ arfur-build = { version = "0.0.2", path = "../arfur-build", features = ["bindgen
 clap = { version = "4.4.2", features = ["derive"] }
 color-eyre = "0.6.2"
 tracing = "0.1.37"
-tracing-subscriber = "0.3.17"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 
 [dependencies.tokio]
-version = "1.21.0"
+version = "1.32.0"
 features = ["macros", "rt-multi-thread"]

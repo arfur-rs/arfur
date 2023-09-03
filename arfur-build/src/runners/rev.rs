@@ -7,6 +7,7 @@ use color_eyre::Result;
 
 use crate::{library::Library, runner::Runner};
 
+#[derive(Debug)]
 pub enum RevLibraries {
     RevFramework,
     RevHeaders,
