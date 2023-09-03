@@ -6,28 +6,30 @@
 }:
 pkgs.stdenv.mkDerivation rec {
   name = "wpilib-cross-compiler";
-  version = "2022-1";
+  version = "2023-9";
 
   nativeBuildInputs = with pkgs; [
     # Patch our binaries!
     autoPatchelfHook
 
     # Binary dependencies (patched during build)
+    # TODO: make sure we actually need each of these deps
     ncurses5.dev
     zlib.dev
     expat.dev
     xz.dev
-    python27Full
+    python3
     libclang.dev
+    mpfr.dev
   ];
 
-  src = pkgs.fetchurl {
-    url = "https://github.com/wpilibsuite/roborio-toolchain/releases/download/v2022-1/FRC-2022-Linux-Toolchain-7.3.0.tar.gz";
-    sha256 = "sha256-snzeMC5G0RUkrt9mQSm8OsffAqeND55Ks/H+tA1merQ=";
+  src = builtins.fetchTarball {
+    url = "https://github.com/wpilibsuite/opensdk/releases/download/v2023-9/cortexa9_vfpv3-roborio-academic-2023-x86_64-linux-gnu-Toolchain-12.1.0.tgz";
+    sha256 = "0h7c1qc0jmw3a3jb1v1d40ld6yz0fr65pn9xjxb51f8zm0q3k02l";
   };
-  sourceRoot = ".";
 
   installPhase = ''
-    cp -r frc2022/roborio $out
+    mkdir $out
+    cp -r bin $out
   '';
 }

@@ -3,6 +3,7 @@ use std::{env, path::Path};
 use crate::{library::Library, runner::Runner};
 
 use color_eyre::eyre::Result;
+use tracing::trace;
 
 pub enum WPILibLibraries {
     HAL,
@@ -58,6 +59,8 @@ impl Library for WPILibLibraries {
 
 pub async fn run(link_only: bool) -> Result<()> {
     use WPILibLibraries::*;
+
+    tracing::info!("Running WPILIB runner...");
 
     // Decide the directory we want to output to. If the OUT_DIR environment
     // variable exists, we're in a build script, and spit it out there. If not,

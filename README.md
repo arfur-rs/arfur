@@ -37,3 +37,15 @@ fn main() -> Result<()> {
 ## Getting started
 
 For now, sift through the crate's [examples](https://github.com/arfur-rs/arfur/tree/main/examples) and [documentation](https://docs.rs/arfur). There's much more to come!
+
+## Development
+
+So, you want to help out with this project? We'd love to chat about the project, just open an issue or make a PR.
+
+Due to the inherently complex nature of generate bindings for large projects, Arfur uses `xtask` to manage the project. After getting access to the source code (presumably via cloning the git repository), run:
+
+```
+cargo xtask bindgen
+```
+
+This will generate the bindings as necessary.
