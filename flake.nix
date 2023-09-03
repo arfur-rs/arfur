@@ -39,6 +39,7 @@
             cargo-audit
             cargo-release
             cargo-edit
+            cargo-expand
             git-cliff
             glibc_multi
             rust-analyzer

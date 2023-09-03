@@ -30,6 +30,6 @@ pkgs.stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir $out
-    cp -r bin $out
+    cp -r . $out
   '';
 }

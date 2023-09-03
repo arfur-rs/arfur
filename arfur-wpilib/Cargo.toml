@@ -16,12 +16,17 @@ build = true
 bindgen = ["arfur-build/bindgen"]
 
 [dependencies]
+autocxx = "0.26.0"
+cxx = "1.0.107"
 derive_builder = "0.12.0"
+miette = "5.10.0"
 thiserror = "1.0.48"
 tracing = "0.1.37"
 
 [build-dependencies]
-color-eyre = "0.6.2"
+autocxx-build = "0.26.0"
+cxx-build = "1.0.107"
+miette = "5.10.0"
 
 [build-dependencies.arfur-build]
 version = "0.0.2"

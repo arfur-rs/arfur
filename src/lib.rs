@@ -36,7 +36,9 @@ pub use arfur_rev as rev;
 #[doc(inline)]
 pub use arfur_wpilib as wpilib;
 
+/*
 pub mod prelude {
     pub use crate::rev::prelude::*;
     pub use crate::wpilib::prelude::*;
 }
+*/
