@@ -39,10 +39,10 @@ use tracing::trace;
 pub struct Robot {
     /// The timeout argument provided to the HAL. The HAL will try to initialize
     /// for `hal_timeout` ms. The default value is 500.
-    #[builder(default = "500", field(type = "i32"))]
+    #[builder(default = "500")]
     hal_timeout: i32,
     /// The mode argument provided to the HAL. See [`HALMode`].
-    #[builder(default, field(type = "HALMode"))]
+    #[builder(default)]
     hal_mode: HALMode,
     #[builder(default, setter(skip))]
     pub(self) _private: (),
@@ -71,7 +71,8 @@ impl RobotBuilder {
             use crate::ffi::root::{HAL_Initialize, HAL_ObserveUserProgramStarting};
 
             // Initialize the HAL.
-            let status = HAL_Initialize(self.hal_timeout, self.hal_mode as i32);
+            // TODO: why do we unwrap the hal values?
+            let status = HAL_Initialize(self.hal_timeout.unwrap(), self.hal_mode.unwrap() as i32);
             if status != 1 {
                 return Err(InitializationError::HALInitializationError);
             }
