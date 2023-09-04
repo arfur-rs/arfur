@@ -45,6 +45,6 @@ mod manualffi {
         type SPI;
 
         type ADXRS450_Gyro;
-        fn new_ADXRS450_Gyro() -> UniquePtr<ADXRS450_Gyro>;
+        pub fn new_ADXRS450_Gyro() -> UniquePtr<ADXRS450_Gyro>;
     }
 }

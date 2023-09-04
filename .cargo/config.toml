@@ -1,8 +1,12 @@
-[alias]
-xtask = "run --package xtask --"
+[build]
+# TODO: could we build to x86-64 too via sim?
+target = ["arm-unknown-linux-gnueabi"]
 
 [target.arm-unknown-linux-gnueabi]
 linker = "arm-frc2023-linux-gnueabi-gcc"
 rustflags = [
   "-C", "target-cpu=cortex-a9",
 ]
+
+[alias]
+xtask = "run --package xtask --"
