@@ -26,7 +26,9 @@ tracing = "0.1.37"
 [build-dependencies]
 autocxx-build = "0.26.0"
 cxx-build = "1.0.107"
-miette = "5.10.0"
+miette = { version = "5.10.0", features = ["fancy"] }
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 
 [build-dependencies.arfur-build]
 version = "0.0.2"

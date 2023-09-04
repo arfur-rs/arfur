@@ -56,6 +56,7 @@
             ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/${stdenv.hostPlatform.config} -idirafter ${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.config}/${lib.getVersion stdenv.cc.cc}/include"}
             -I ${glibc_multi.dev}/include/ -L ${glibc_multi}/lib
           '';
+          env."TARGET_CXX" = "arm-frc2023-linux-gnueabi-g++";
         });
       };
     };
